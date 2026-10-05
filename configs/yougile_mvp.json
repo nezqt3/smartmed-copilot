@@ -1,0 +1,196 @@
+{
+  "board_url": "https://ru.yougile.com/team/55b55c707a49/smartmed",
+  "updated_at": "2026-10-04",
+  "roles": {
+    "pavel": "Backend and model integration",
+    "denis": "Audio, UI and preparation of submission materials"
+  },
+  "note": "Current role plan; final external placement of task 06 needs verification after YouGile reconnects. Estimates are planning assumptions, not time logs.",
+  "tasks": [
+    {
+      "key": "00",
+      "yougile_id": "SMA-11",
+      "title": "Требования первого этапа и план недели",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-04",
+      "priority": "critical",
+      "column": "в работе"
+    },
+    {
+      "key": "01",
+      "yougile_id": "SMA-12",
+      "title": "Каркас проекта и локальный запуск",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-05",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "02",
+      "yougile_id": null,
+      "title": "Спецификация записи и перекрёстная разметка",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-05",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "03",
+      "yougile_id": "SMA-10",
+      "title": "Китайский корпус и удержанный тест",
+      "owner": "denis",
+      "assignees": [
+        "denis",
+        "pavel"
+      ],
+      "due": "2026-10-05",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "04",
+      "yougile_id": null,
+      "title": "Аудиокорпус и локальное распознавание речи",
+      "owner": "denis",
+      "assignees": [
+        "denis"
+      ],
+      "due": "2026-10-06",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "05",
+      "yougile_id": "SMA-7",
+      "title": "Локальное извлечение записи со схемой и основаниями",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-06",
+      "priority": "critical",
+      "column": "в работе"
+    },
+    {
+      "key": "06",
+      "yougile_id": "SMA-5",
+      "title": "Поиск проверенных кодов и справочник диагнозов",
+      "owner": "denis",
+      "assignees": [
+        "denis"
+      ],
+      "due": "2026-10-12",
+      "priority": "major",
+      "column": "После первого этапа",
+      "external_update_pending": true
+    },
+    {
+      "key": "07",
+      "yougile_id": "SMA-4",
+      "title": "Правила безопасности и справочник препаратов",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-06",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "08",
+      "yougile_id": "SMA-3",
+      "title": "Панель врача и экспорт проверенной записи",
+      "owner": "denis",
+      "assignees": [
+        "denis"
+      ],
+      "due": "2026-10-07",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "09",
+      "yougile_id": "SMA-2",
+      "title": "Оценка качества и отчёт с измеренными результатами",
+      "owner": "pavel",
+      "assignees": [
+        "pavel",
+        "denis"
+      ],
+      "due": "2026-10-08",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "10",
+      "yougile_id": "SMA-13",
+      "title": "Сквозная сборка и проверка демо",
+      "owner": "pavel",
+      "assignees": [
+        "pavel",
+        "denis"
+      ],
+      "due": "2026-10-08",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "11",
+      "yougile_id": "SMA-14",
+      "title": "Презентация видео и репетиция защиты",
+      "owner": "denis",
+      "assignees": [
+        "denis",
+        "pavel"
+      ],
+      "due": "2026-10-09",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "12",
+      "yougile_id": "SMA-15",
+      "title": "Пакет первого этапа и контроль подачи",
+      "owner": "denis",
+      "assignees": [
+        "denis"
+      ],
+      "due": "2026-10-10",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "13",
+      "yougile_id": "SMA-16",
+      "title": "API, сохранение и редактирование черновика",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": "2026-10-07",
+      "priority": "critical",
+      "column": "бэклог"
+    },
+    {
+      "key": "90",
+      "yougile_id": null,
+      "title": "Дообучение адаптера и проверка пользы",
+      "owner": "pavel",
+      "assignees": [
+        "pavel"
+      ],
+      "due": null,
+      "priority": "low",
+      "column": "После первого этапа"
+    }
+  ]
+}

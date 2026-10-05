@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartmed"
+version = "0.1.0"
+description = "SmartMed ambient EHR copilot: encounter transcript to schema-bound SOAP draft"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7,<3",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "httpx>=0.27,<1",
+    "instructor>=1.7,<2",
+    "openai>=1.60,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "jsonschema>=4", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["smartmed-proposal"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

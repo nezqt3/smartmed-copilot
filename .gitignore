@@ -11,6 +11,7 @@ apps/panel/node_modules/
 apps/panel/dist/
 .env
 .DS_Store
+~$*
 
 /.qa/
 

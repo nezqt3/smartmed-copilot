@@ -1,0 +1,213 @@
+T|SmartMed Ambient EHR Copilot
+S|Project Proposal and Algorithm Design
+I|8th Global Campus AI Algorithm Elite Competition, Northeast China Regional Selection~~Digital Economy AI Agent Track, topic (4) AI + Scenario Innovation~~Dalian Neusoft University of Information, School of Software
+
+H1|1. Project Overview and Core Value
+H2|1.1 Problem
+P|In outpatient practice the physician spends a large part of the working day on the record rather than on the patient. Industry estimates commonly put manual documentation at 30-40% of working time; we treat that range as a working assumption to be confirmed by timed observation in a pilot, not as a measured fact. The consequences are visible in any busy clinic: notes written after hours from memory, structured fields left empty or copied from the previous visit, and a throughput ceiling set by paperwork rather than by clinical decision. The record is also where safety is lost: allergies documented in prose instead of structured fields cannot be checked downstream, so a prescription conflict surfaces only if a pharmacist happens to notice it.
+H2|1.2 Solution
+P|SmartMed is an ambient clinical documentation agent. It captures consultation audio inside the clinic's own network, separates speakers, converts the dialogue into a structured SOAP note coded against the national clinical ICD-10 revision, runs a deterministic safety check over the draft prescription, and hands the physician a pre-filled chart to approve. The system never signs a record; the physician does.
+P|Scope of this submission: a research prototype for a student competition. Two students, no hospital data agreement, no dedicated GPU. Training uses public Chinese medical corpora and synthetic dialogues on Colab and an Apple Silicon laptop. Work that requires a clinical partner (real audio, ethics approval, classified-protection assessment) is on the development roadmap and is labelled as such throughout.
+H2|1.3 Agent properties and track fit
+P|The system behaves as an agent rather than a prompt wrapper: it perceives a continuous audio stream with voice activity detection, speaker roles and consultation phase tracking; it plans by calling discrete tools (ASR rescoring, retrieval over the drug and coding knowledge base, schema validator, rules engine) instead of leaving extraction to free-form generation; it keeps per-episode working memory plus a persistent patient summary read from the clinic's local store under explicit access control; and its only irreversible action is placing a draft in a review queue, since committing the record requires a physician's authenticated approval. That last point is what keeps clinical and legal responsibility with the clinician.
+H2|1.4 Algorithmic contributions
+B|Schema-constrained extraction. |Grammar-constrained decoding plus Pydantic validation produce a typed record that loads into a database without post-processing, and make silent format failure impossible.
+B|Separation of probabilistic and deterministic stages. |The LLM drafts; a rules engine and a small clinical knowledge graph verify. A single model cannot be both generator and safety authority.
+B|Hallucination suppression with measurable abstention. |Field-level provenance, retrieval grounding, and a confidence threshold that yields an empty field instead of an invention. The abstention rate is reported as a first-class metric.
+B|Coding as constrained retrieval. |Codes are chosen only from retrieved candidates in the national clinical ICD-10 revision, with ICD-11 transition mapping, the most specific supported code preferred and symptom-level fallback.
+H1|2. Algorithm Design and Model Selection
+H2|2.1 Speech front end
+P|Primary ASR is Paraformer (streaming and offline, FunASR); Whisper large-v3 is kept as a comparison candidate. The choice is decided by measured character error rate on consultation-like audio rather than by reputation, because outpatient rooms have HVAC noise, keyboard typing and overlapping speech from two or three people. Speaker diarization uses embeddings (CAM++) with online clustering, aligned to the transcript timeline so the extraction stage knows who said what. A hot-word list of drug names, departments and symptom collocations is applied through contextual biasing and n-best rescoring, since medical entities are exactly what generic ASR drops. Expected values, to be measured: CER ≤ 8%, diarization DER ≤ 12%, real-time factor ≤ 0.3 on one consumer GPU.
+H2|2.2 Language model selection
+P|Candidates were screened on Chinese medical competence, licence terms permitting private on-premise deployment, feasibility of 4-bit QLoRA within 16 GB VRAM, and reliability of structured output. This is a design decision; section 5.2 defines the ablation that tests it.
+TBLW|2050,1900,1900,2000,2000
+TR|Candidate||Chinese medical ability||On-prem licence||Training footprint||Role
+TR|Qwen2.5-7B-Instruct||Strong on public Chinese medical benchmarks||Open, permissive||4-bit QLoRA in 1x24 GB||Base model for extraction and coding
+TR|Baichuan-Med-7B||Medicine-specific pretraining||Open, terms to verify||1x24 GB||Domain baseline
+TR|ChatGLM3-6B||Good Chinese dialogue||Open||1x16 GB||Small-footprint fallback
+TR|LLaMA-3-8B-Instruct||Weaker Chinese clinical coverage||Community licence limits||1x24 GB||Cross-lingual control
+TR|General cloud LLM API||High general ability||PHI leaves the network||No training||Zero-shot baseline only
+H2|2.3 Fine-tuning configuration
+P|Training uses QLoRA with the base frozen in 4-bit NF4, double quantisation and paged optimiser state, LoRA adapters on the attention and feed-forward projections, bf16 compute, three epochs with early stopping on held-out field F1, and a 4096-token sequence budget. Full hyperparameters, the three-stage schedule (instruction SFT, rejection sampling on schema-valid outputs, then probability calibration) and the hardware actually available are listed in Appendix A. Calibration matters because the confidence thresholds in 2.5 and 2.6 are only meaningful on calibrated probabilities.
+H2|2.4 Constrained decoding and validation
+P|Top-level JSON is produced by grammar-constrained decoding, so output is always parseable; each section is validated by a Pydantic model with enums for units, frequency and severity, with one repair retry on failure. The failure policy matters more than the parser: a field the transcript does not support stays empty and is flagged for physician entry. The model is never asked to fill a gap plausibly.
+H2|2.5 Diagnosis coding
+P|The target is the ICD-10 national clinical revision 2.0 (国家临床版2.0) actually used for hospital coding in China, with a mapping layer to the ICD-11 transition version (过渡版) so the prototype survives the ongoing migration; targeting the international base edition alone would be wrong for this market. Coding is constrained retrieval plus classification: a bi-encoder indexes code titles, synonyms and inclusion terms, candidates are re-ranked, and the model chooses only among them, preferring the most specific code the transcript supports and falling back to a symptom code rather than presuming a disease. Below the coding threshold the field is left empty and the physician sees the top three candidates with their evidence spans.
+H2|2.6 Hallucination suppression
+P|We claim a low-hallucination pipeline, not a zero-hallucination one: no LLM system can guarantee the absence of invented content, and an absolute claim would not survive review. Each mechanism has a measurement in section 5.
+B|Retrieval grounding. |Drug facts, contraindications and dose limits come from a curated local knowledge base built from published insert material and public guideline summaries, not from parametric memory.
+B|Field-level provenance. |Every filled field stores the transcript span behind it; a field with no resolvable span is dropped before the review queue.
+B|Confidence threshold with abstention. |Below threshold the agent outputs nothing for that field and marks it as requiring physician input.
+B|Cross-field consistency and adversarial testing. |Allergy versus prescribed drug, age versus dose range, duplicate ingredients; plus a test set with deliberately missing information so the unsupported-field rate is measured rather than assumed.
+H2|2.7 Deterministic safety engine
+P|The safety layer is not an LLM. It is a rules engine over a small clinical knowledge graph covering allergy-drug contraindications, drug-drug interactions, dose ceilings by age and renal function, and pregnancy contraindications. Validation takes milliseconds and emits a full audit record with rule identifier and evidence. Rules are curated from published drug insert material, reviewed by the project's medical consultant, versioned in the repository and updated on a fixed cycle. The engine warns and blocks auto-commit; it never edits the physician's prescription.
+H1|3. System Architecture and Deployment
+PRE|+-----------------------------------------------------------+
+PRE|| Capture        PC microphone or array, local acquisition    |
+PRE|| Speech         Paraformer streaming, VAD, CAM++ diarizer   |
+PRE|| Extraction     Qwen2.5-7B + QLoRA, constrained decoding    |
+PRE|| Knowledge      drug and ICD index, retrieval service       |
+PRE|| Safety         rule engine + clinical knowledge graph      |
+PRE|| Review         web dashboard: approve / edit / export      |
+PRE|| Persistence    local encrypted store, audit log            |
+PRE|| Integration    FHIR / HL7 v2 or partner HIS SDK            |
+PRE|+-----------------------------------------------------------+
+PRE|All components run inside the clinic network. No audio and no
+PRE|protected health information is sent to public cloud endpoints.
+P|Module responsibilities and the constraint that binds each one are tabulated in Appendix B. Two design rules are worth stating here. Nothing in the decision path of the safety layer calls a model, which is what makes its output auditable. And the review interface is the only writer to the medical record, so the physician's approval is a single authenticated action rather than a formality.
+H2|3.1 Integration with hospital information systems
+P|Direct hospital HIS integration is not something a two-student prototype can certify, and we do not claim it. The technical path is a standard interface layer, FHIR resources or HL7 v2 messages, or the vendor SDK supplied by a channel partner, with the review panel embedded in the physician's existing workflow. Until such access exists, export is .docx and PDF plus a structured JSON payload.
+H1|4. Data Strategy and Annotation
+H2|4.1 Sources
+P|Training data comes from three places. Public Chinese medical corpora (Huatuo-26M for coverage, DISC-MedLLM for instruction-formatted dialogue, MedDialog for conversational structure) supply language and clinical content but are not outpatient transcripts. A synthetic generator builds doctor-patient dialogues from SOAP templates with controlled variation in phrasing, incompleteness and interruption, and emits the structured record as ground truth, which is what makes field-level evaluation possible at zero data cost. Real audio is out of scope until an agreement with a clinic, ethics approval and patient informed consent exist, and is scheduled in the roadmap rather than in the current training set.
+P|The limitation is stated plainly: public text and synthetic dialogues do not reproduce the acoustic and conversational properties of a real consultation room. The evaluation therefore reports domain-gap sensitivity explicitly, and the first post-competition milestone is a small recorded pilot under proper approvals.
+H2|4.2 De-identification
+P|Applied to every dataset we create or accept: direct identifiers removed, quasi-identifiers generalised (age bands, shifted dates, department instead of address), k-anonymity checked over three-field combinations, and a re-identification audit on a random sample by a second annotator. The procedure follows the Personal Information Protection Law and the health-data requirements of GB/T 35273, and a future clinical data agreement inherits these rules as contract terms.
+H2|4.3 Annotation standard and quality control
+P|A written specification defines each SOAP slot, the boundary between subjective and objective content, medication and allergy extraction, and code assignment including when no code may be assigned. Annotation runs in Label Studio with two independent annotators on a shared sample: a 50-item pilot round before any scaling, disagreements analysed and the specification revised, then a per-field-group Cohen's kappa ≥ 0.75 before the corpus is frozen. Clinical disagreements are settled by the project's medical consultant and the ruling is stored with the annotation record.
+H2|4.4 Splits and leakage control
+P|Group splits by dialogue and patient identifier keep near-duplicates out of different partitions. The held-out test set is excluded from synthesis prompts and few-shot examples, and every evaluation ships an n-gram overlap report between train and test, because a synthetic corpus can otherwise leak through template reuse.
+H1|5. Evaluation Metrics and Experimental Plan
+H2|5.1 Metrics
+P|All values below are targets fixed before the experiments run. We have no measurements yet and do not present design targets as results.
+TBLW|2500,4000,1400,1900
+TR|Metric||Definition||Target||Measurement
+TR|SOAP field F1||Precision, recall, macro F1 per structured field against reference||≥ 0.85||Automatic on held-out dialogues
+TR|ICD top-1 / top-3||Code-level accuracy against the national clinical revision||≥ 0.70 / ≥ 0.85||Automatic plus physician review on a sample
+TR|Critical-slot miss rate||Allergy, dose, diagnosis fields empty or wrong||≤ 3%||Automatic plus physician audit
+TR|Unsupported-field rate||Filled fields with no resolvable transcript span||≤ 1%||Provenance check on adversarial set
+TR|Abstention rate||Fields intentionally left empty||reported, not optimised||Automatic
+TR|Physician usability||Three-point clinical adequacy scale, independent clinician||mean ≥ 2.5||Blinded rating of 60 records
+TR|ASR CER / diarization DER||Character and diarization error rates||≤ 8% / ≤ 12%||Standard tooling on held-out audio
+TR|Safety recall / false alerts||Detection on synthetic contraindication cases||≥ 0.98 / ≤ 5%||Curated adversarial case set
+H2|5.2 Baselines and ablation
+P|The grid in Appendix C isolates one factor per row: a general cloud LLM with free-text output to bound what a wrapper achieves, the same base model without fine-tuning, then the full model minus schema constraints, minus retrieval grounding, and minus the rules engine, against the complete pipeline as reference. The result column is filled as experiments complete rather than estimated in advance.
+H2|5.3 Measurement protocol
+P|Three random seeds per configuration, mean and standard deviation reported. Hardware, library versions, quantisation settings and prompts are recorded in the reproduction package so results can be checked rather than taken on trust, and evaluation scripts run only on the frozen test set.
+H1|6. Latency and Throughput Budget
+P|In an outpatient room a draft that appears after the patient has left is worthless, so this budget is a design constraint on the architecture. The figures are targets to be verified on the hardware described in section 12.
+TBLW|2900,1900,5000
+TR|Segment||Target||Method
+TR|Streamed partial transcript||≤ 3 s||Streaming ASR with local buffering
+TR|Reviewable draft after the consultation||≤ 60 s (P95 ≤ 90 s)||Batch extraction on 4096-token context, 4-bit inference
+TR|Deterministic safety validation||≤ 300 ms||Rule engine, no model call
+TR|End to end, 10-minute dialogue||≤ 75 s||Sum of the above plus UI render
+TR|Concurrent consultations per 24 GB node||≥ 3||Continuous batching, quantised weights, KV-cache limits
+H1|7. Competitive Analysis
+P|We compare against medical AI products actually deployed in China rather than against general chatbots: iFlytek (智医助理, 晓医), Baidu Lingyi (灵医) and Tencent Miying (觅影). The full matrix across deployment model, speech front end, SOAP structuring, coding coverage, compliance, HIS integration, deployment timeline and cost is in Appendix D. Two notes on honesty of comparison: competitor cells are summarised from public vendor material and have not been reproduced by us, and none of the products compared is an ambient outpatient documentation agent of our type, so the table shows positioning rather than a like-for-like benchmark. Our defensible position against all three is a single local node on open weights, software diarization without proprietary microphone arrays, and schema-constrained output with published field-level metrics.
+H1|8. Regulatory and Compliance Path
+P|Compliance is the main obstacle between a working prototype and a deployed product, so it belongs in the proposal rather than in a footnote.
+B|Security and data. |A system holding patient records in a clinical setting falls under the classified protection regime, where level 3 (等级保护三级) is the practical expectation for hospital-connected systems, alongside the Cybersecurity, Data Security and Personal Information Protection laws. Assessment is external and paid, and we schedule it rather than assume it away.
+B|Generative AI. |Public-facing generative services require algorithm filing under the applicable provisions. Our deployment model is a private internal tool for licensed clinicians, which narrows but does not eliminate the obligation; filing status is a roadmap task.
+B|Device classification. |Software that only drafts documentation, with a licensed physician reviewing and signing every record, generally sits outside diagnostic decision-making device classification, whereas software recommending diagnosis or treatment is a medical device requiring NMPA registration. We deliberately keep the product on the documentation side of that line, and any move toward clinical recommendations triggers a formal classification request first.
+P|This is a compliance plan written by students, not a legal opinion. The next concrete step is named: before any pilot on real data, obtain institutional review approval and a written classification assessment from the intended channel partner's regulatory team.
+H1|9. Team and Responsibilities
+TBLW|2500,1900,5400
+TR|Member||Role||Responsibility
+TR|Pavel Safonov (帕维尔·萨福诺夫), student, School of Software||Model training and evaluation||Data pipeline, QLoRA training, constrained decoding, evaluation harness, reporting
+TR|Denis Alekseenko (杰尼斯·阿列克谢延科), student, School of Software||System and interface||ASR and diarization integration, knowledge base service, safety rules engine, review UI
+TR|Ren Zheng (任政), School of Software, Dept. of Software and Big Data Technology||Supervisor||Technical direction, project review, institutional coordination
+TR|Maria V. Safonova (萨福诺娃·玛丽亚·弗拉基米罗芙娜), physician||Medical consultant||Annotation specification review, clinical adjudication, safety rule content review
+P|The medical consultant is a practising physician with 16 years of experience, qualified in internal medicine, general practice, public health and healthcare organisation, and functional diagnostics. Both team members, by contrast, are software students rather than clinicians. We treat that as a real limitation for a medical project and address it in three ways: an external physician reviews the annotation standard and the safety rules, every clinical claim in this document is tied to a measurable protocol, and the pipeline is built so that an unverified field is empty rather than plausible.
+H1|10. Implementation Plan
+P|Registration and fee payment close on 15 October 2026 at 20:00, with internal university submission by 10 October; both dates are already met by this document's submission. The engineering plan then runs in four blocks through December 2026, data pipeline and annotation specification first, then speech and zero-shot baselines, then fine-tuning with constrained decoding and the coding index, then retrieval grounding, the safety engine and the review interface, closing with latency optimisation and the evaluation report. Periods, work content and exit criteria are listed in Appendix E; 2027 work on clinic partnership, ethics application and a recorded pilot is roadmap, outside competition scope.
+H1|11. Risk Assessment
+P|Eight risks are registered with likelihood, impact and mitigation in Appendix F. Three shape our design decisions directly. Without real clinical audio the model learns synthetic speech patterns, which is why the speech front end is modular and the domain gap is reported rather than glossed over. Without an in-house clinician the annotation carries bias, which is why the specification is written, piloted, gated by kappa and adjudicated by the consultant. And with two students alongside coursework the only defence is scope: one pipeline, weekly checkpoints, and a supervisor review at every milestone.
+H1|12. Budget and Resources
+P|The competition phase is estimated at roughly 2,100 renminbi: a four-month Colab subscription, about 150 GPU-hours of rented A100-class compute for the final training and evaluation blocks, and storage for corpora and checkpoints, with the existing laptop covering pipeline development. Line items and their basis are itemised in Appendix G. Annotation is unpaid student time plus physician review, and no clinical data is purchased. Costs deliberately excluded at this stage and named as roadmap items are the level-3 classified protection assessment, algorithm filing preparation, integration certification with a hospital vendor and on-site deployment support; each is real money that belongs to a commercial pilot, not to a student prototype.
+H1|13. Expected Results
+TBLW|3200,3200,3400
+TR|Outcome||Current baseline||Expected target
+TR|Time to a reviewable record||About 8 minutes of manual entry (commonly cited estimate)||Draft within 60 s, physician approval within a further 15 s
+TR|Physician keyboard time per consultation||Full manual entry||70-90% reduction, measured in pilot
+TR|Coding completeness||Frequently incomplete by hand||Every critical slot either filled with evidence or explicitly flagged
+TR|Deliverables||none||Running prototype, trained adapter weights, evaluation report with ablation table, reproduction package, technical documentation
+TR|Intellectual output||none||One software copyright application and one documented evaluation protocol
+P|The 8-minute baseline is a commonly cited industry estimate, not our measurement. Verifying it by timed observation in a real clinic is part of the pilot, and every reduction figure above remains a target until that measurement exists.
+H1|14. Business Model and Route to Market
+P|The paying customer is an institution, not an individual physician, and the route is B2B2C through an existing health IT channel rather than direct hospital sales: a two-student team will not win a twelve-month hospital procurement cycle, but it can build a module that a HIS vendor or regional health platform adds to its installed base. Several domestic HIS vendors and internet health platforms fit this role; none is named as a committed partner. Revenue is a per-seat monthly subscription plus a one-time deployment and integration fee per institution, with volume pricing for platform partners. Entry is a free three-month pilot in one outpatient department, exchanged for timed measurements and annotation feedback, whose purpose is evidence rather than revenue. Open weights and a single local inference node keep the marginal cost per clinic low, which is what makes the subscription affordable for mid-sized private groups and community clinics that would never fund a hardware suite. No sales activity takes place during the competition phase, and every gate in section 8 precedes all of the above.
+H1|15. Standards, Models and Datasets Referenced
+B|Models and tooling. |Qwen2.5 instruction series, Baichuan-Med, ChatGLM3, LLaMA 3, Paraformer and FunASR, Whisper, CAM++ diarization, QLoRA, Pydantic, Label Studio.
+B|Datasets. |Huatuo-26M, DISC-MedLLM, MedDialog (Chinese subset).
+B|Standards and regulation. |ICD-10 national clinical revision 2.0, ICD-11 transition version, HL7 FHIR, SOAP note structure, GB/T 22239 classified protection baseline, GB/T 35273 personal information security specification, the Personal Information Protection, Data Security and Cybersecurity laws, the provisions on administration of generative AI services, and the medical device supervision regulations with the guidance on classification of AI medical software.
+PAGE|
+H1|A. Fine-tuning configuration
+TBLW|2600,7200
+TR|Setting||Value and reason
+TR|Method||QLoRA: base frozen in 4-bit NF4, double quantisation, paged optimiser state
+TR|LoRA configuration||r = 16, alpha = 32, dropout 0.05, applied to q/k/v/o and gate/up/down projections
+TR|Precision||bf16 compute on 4-bit weights
+TR|Optimisation||AdamW, lr 2e-4, cosine decay, 3% warmup, effective batch 16 by gradient accumulation
+TR|Sequence budget||4096 tokens, gradient checkpointing on
+TR|Epochs||3, early stop on held-out field F1
+TR|Hardware reality||Colab (T4 or A100 by availability) for full runs; Apple Silicon with 4-bit MLX for pipeline development on a reduced subset; hourly cloud GPU rental reserved for the final training block
+TR|Training stages||(1) instruction SFT on SOAP extraction and coding; (2) rejection sampling on schema-valid outputs, only if stage 1 still shows format failures; (3) probability calibration so the confidence threshold in 2.5 is meaningful
+
+H1|B. System modules and constraints
+TBLW|2200,3400,4200
+TR|Module||Responsibility||Key constraint
+TR|Capture||Local streaming audio, voice activity detection||No cloud round trip, no recording without visible notice in the room
+TR|Speech||Transcription, speaker roles, medical hot words||Real-time factor ≤ 0.3 target
+TR|Extraction||SOAP structuring, ICD coding, medication list||Schema-constrained, abstention allowed
+TR|Knowledge||Drug and coding retrieval, evidence spans||Refreshable offline index
+TR|Safety||Deterministic rule validation||No LLM in the decision path
+TR|Review||Physician edit and approve, export||Single authenticated action to commit
+TR|Store||Encrypted local persistence, audit trail||Data retention and deletion per clinic policy
+
+H1|C. Baselines and ablation plan
+TBLW|3200,4200,2400
+TR|Configuration||Purpose||Result
+TR|General cloud LLM, zero-shot, free text||Establishes what a generic wrapper achieves||to be filled
+TR|Qwen2.5-7B, zero-shot||Isolates the contribution of fine-tuning||to be filled
+TR|Fine-tuned, no schema constraints||Measures format failures and their cost||to be filled
+TR|Fine-tuned, no retrieval grounding||Measures unsupported-field rate without knowledge base||to be filled
+TR|Fine-tuned, no rules engine||Measures what deterministic validation catches||to be filled
+TR|Full pipeline||Reference configuration for all reported numbers||to be filled
+
+H1|D. Competitor comparison matrix
+TBLW|1500,2100,2100,2000,2100
+TR|Dimension||iFlytek (智医助理, 晓医)||Baidu Lingyi (灵医)||Tencent Miying (觅影)||SmartMed
+TR|Primary focus||Clinical decision support for primary care, speech recognition platform||Medical large model, consultation and record assistance||Medical imaging AI, extended toward multimodal record generation||Ambient outpatient documentation agent
+TR|Deployment||On-premise and platform, oriented to large institutions and regional projects||Cloud API centred, private deployment as enterprise option||Hospital research partnerships, imaging infrastructure||Single local node, private by default
+TR|Speech and speaker separation||Strong, own ASR stack, mature in noisy field use||Limited public detail on ambient multi-speaker input||Not the core capability||Software diarization with medical hot-word biasing, no proprietary hardware assumed
+TR|SOAP structuring||Template and form driven||Model generated, schema strictness not published||Not the primary output||Schema-constrained output with field-level provenance, F1 reported
+TR|Diagnosis coding||Uses national coding standards in decision support products||Coding capability reported, revision coverage not published||Not the focus||ICD-10 national clinical revision 2.0 plus ICD-11 transition mapping
+TR|Privacy compliance||Established institutional compliance track record||Institutional certifications, cloud data flow to assess||Institutional partnerships||On-premise only, no PHI egress; classified protection level 3 and algorithm filing planned before any deployment
+TR|HIS integration||Deep, mature vendor relationships||Through platform partnerships||Through research departments||Via channel partner's existing HIS interface
+TR|Deployment timeline||Months, institutional procurement||Weeks to months||Months||Target: pilot-ready prototype within the competition window
+TR|Cost profile||High, hardware and integration heavy||Recurring token and platform spend||High, imaging oriented||Low: one 7B inference node, open weights
+
+H1|E. Milestones
+TBLW|2400,3200,4200
+TR|Period||Work||Exit criterion
+TR|By 10 Oct 2026||Internal university submission||Materials accepted by the school
+TR|By 15 Oct 2026, 20:00||Registration and fee payment on aicomp.cn||Confirmed entry
+TR|Late Oct 2026||Data pipeline, annotation specification, 50-item pilot round||Kappa measured, specification revised
+TR|Nov 2026 (weeks 1-2)||ASR baseline, diarization, hot-word list, zero-shot extraction baseline||Baseline numbers recorded
+TR|Nov 2026 (weeks 3-4)||QLoRA training v1, schema-constrained decoding, coding index||First full pipeline run end to end
+TR|Dec 2026 (weeks 1-2)||Retrieval grounding, safety rules engine, review UI||All six ablation rows executed
+TR|Dec 2026 (weeks 3-4)||Latency optimisation, evaluation report, reproduction package||Targets in section 5 either met or explained
+TR|Jan 2027 onward||Clinic partnership discussion, ethics application, recorded pilot design||Roadmap phase, outside competition scope
+
+H1|F. Risk register
+TBLW|2400,1200,1200,5000
+TR|Risk||Likelihood||Impact||Mitigation
+TR|No real clinical audio, model learns synthetic speech patterns||High||High||Report domain-gap sensitivity, keep the acoustic front end modular, book the recorded pilot as the first post-competition step
+TR|Hallucinated clinical content reaches a draft||Medium||High||Provenance requirement per field, abstention below threshold, physician approval gate, adversarial evaluation
+TR|Annotation bias without in-house clinicians||High||Medium||Written specification, pilot round, kappa threshold, physician adjudication logged
+TR|Compute limits of Colab and a laptop||High||Medium||4-bit training, sequence budget caps, reduced subset for development, hourly cloud rental reserved for final runs
+TR|Compliance uncertainty on device classification||Medium||High||Stay on the documentation side of the line, no diagnostic recommendations, formal classification request before scope change
+TR|Physician resistance to reviewing machine output||Medium||High||Edit-friendly review UI, evidence span shown per field, time-to-approve measured as a metric
+TR|Homogeneous competition and copycat products||Medium||Medium||Narrow focus on ambient outpatient documentation with on-premise deployment, publishable evaluation protocol
+TR|Two students alongside coursework||High||Medium||Scope cut to one pipeline, weekly checkpoints, supervisor review at each milestone
+
+H1|G. Budget detail
+TBLW|3200,1600,5000
+TR|Item||Estimate||Basis
+TR|Colab subscription, 4 months||≈ 700||Standard student tier, used for development runs
+TR|Cloud GPU rental for final training and evaluation||≈ 1,200||About 150 GPU-hours of an A100-class card at hourly rates
+TR|Local compute||0||Existing Apple Silicon laptop for pipeline development
+TR|Storage and bandwidth||≈ 200||Corpus and checkpoint hosting
+TR|Annotation labour||0 cash||Student time plus physician consultant review, roughly 120 hours in-kind
+TR|Competition entry||per official notice||Fee as published on aicomp.cn
+TR|Total, competition phase||≈ 2,100||Excludes future compliance costs

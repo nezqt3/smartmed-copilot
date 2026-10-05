@@ -1,0 +1,68 @@
+{
+  "status": "prototype_candidate_requires_prompt_and_validation_improvements",
+  "model": "qwen3.5:4b",
+  "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+  "quantization": "Q4_K_M",
+  "think": false,
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 1400
+  },
+  "fallback": "qwen3:4b-instruct",
+  "evidence_directory": "/Users/pavel/Documents/github/smartmed-copilot/experiments/02_model_comparison/results/20261004T092905Z",
+  "limitations": [
+    "40 assistant-authored synthetic Chinese cases, not clinically reviewed",
+    "6 extraction fields only; ASR and full SOAP not evaluated",
+    "12/40 outputs violate the strict contract",
+    "3/40 allergy statuses incorrectly negate unknown information",
+    "1/40 cough value confuses duration with symptom"
+  ],
+  "quality": {
+    "cases": 40,
+    "failed_requests": 0,
+    "valid_cases": 28,
+    "status_correct": 235,
+    "field_count": 240,
+    "status_accuracy": 0.9791666666666666,
+    "status_macro_f1": 0.9541773436346004,
+    "f1_by_status": {
+      "present": 0.9873417721518988,
+      "negated": 0.8888888888888888,
+      "unknown": 0.9863013698630136
+    },
+    "exact_status_value": 0.9041666666666667,
+    "unsupported_positive_fields": 0,
+    "missed_positive_fields": 1,
+    "confusion": {
+      "present": {
+        "present": 39,
+        "negated": 0,
+        "unknown": 1,
+        "invalid": 0
+      },
+      "negated": {
+        "present": 0,
+        "negated": 16,
+        "unknown": 0,
+        "invalid": 0
+      },
+      "unknown": {
+        "present": 0,
+        "negated": 4,
+        "unknown": 180,
+        "invalid": 0
+      }
+    },
+    "details": "See evidence_directory"
+  },
+  "timing": {
+    "warm_successful_requests": 14,
+    "warm_median_seconds": 7.727,
+    "warm_p95_seconds": 10.766,
+    "first_request_seconds": 10.17,
+    "max_ollama_reported_allocation_bytes": 3179576032,
+    "failed_requests": 0
+  }
+}

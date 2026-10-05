@@ -1,0 +1,247 @@
+[
+  {
+    "id": "dev_01_negation",
+    "source": "synthetic_hand_authored",
+    "split": "dev",
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "doctor",
+        "text": "你发烧了吗？咳嗽多久了？"
+      },
+      {
+        "turn_id": 2,
+        "speaker": "patient",
+        "text": "没有发烧，咳嗽两天了。"
+      },
+      {
+        "turn_id": 3,
+        "speaker": "doctor",
+        "text": "对青霉素过敏吗？"
+      },
+      {
+        "turn_id": 4,
+        "speaker": "patient",
+        "text": "不清楚。"
+      }
+    ],
+    "translation_ru": [
+      "Врач: Была температура? Как долго кашель?",
+      "Пациент: Температуры не было, кашляю два дня.",
+      "Врач: Есть аллергия на пенициллин?",
+      "Пациент: Не знаю."
+    ],
+    "gold": {
+      "发热": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "没有发烧"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "咳嗽两天了"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "两天",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "咳嗽两天了"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "dev_02_explicit_facts",
+    "source": "synthetic_hand_authored",
+    "split": "dev",
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "doctor",
+        "text": "有什么症状？"
+      },
+      {
+        "turn_id": 2,
+        "speaker": "patient",
+        "text": "发烧三天了，没有咳嗽。"
+      },
+      {
+        "turn_id": 3,
+        "speaker": "doctor",
+        "text": "有药物过敏吗？吃过什么药？"
+      },
+      {
+        "turn_id": 4,
+        "speaker": "patient",
+        "text": "我对青霉素过敏。昨天吃了对乙酰氨基酚，一次500毫克。"
+      }
+    ],
+    "translation_ru": [
+      "Врач: Какие симптомы?",
+      "Пациент: Температура три дня, кашля нет.",
+      "Врач: Есть аллергия на лекарства? Какие лекарства принимали?",
+      "Пациент: У меня аллергия на пенициллин. Вчера принимал парацетамол, 500 мг за один приём."
+    ],
+    "gold": {
+      "发热": {
+        "status": "present",
+        "value": "发烧",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "发烧三天了"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "没有咳嗽"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "三天",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "发烧三天了"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "present",
+        "value": "青霉素过敏",
+        "evidence": [
+          {
+            "turn_id": 4,
+            "quote": "我对青霉素过敏"
+          }
+        ]
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "对乙酰氨基酚",
+        "evidence": [
+          {
+            "turn_id": 4,
+            "quote": "昨天吃了对乙酰氨基酚，一次500毫克"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "一次500毫克",
+        "evidence": [
+          {
+            "turn_id": 4,
+            "quote": "昨天吃了对乙酰氨基酚，一次500毫克"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dev_03_doctor_not_patient",
+    "source": "synthetic_hand_authored",
+    "split": "dev",
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "doctor",
+        "text": "有没有发烧？"
+      },
+      {
+        "turn_id": 2,
+        "speaker": "patient",
+        "text": "我咳嗽，吃过布洛芬，但不记得剂量。"
+      },
+      {
+        "turn_id": 3,
+        "speaker": "doctor",
+        "text": "如果需要用药，剂量可以是一次200毫克。先确认过敏史。"
+      }
+    ],
+    "translation_ru": [
+      "Врач: Была температура?",
+      "Пациент: Я кашляю, принимал ибупрофен, но не помню дозу.",
+      "Врач: Если потребуется лекарство, доза может быть 200 мг за приём. Сначала уточним аллергии."
+    ],
+    "note_ru": "Синтетическая реплика врача проверяет, что предложение не превратится в уже принятую дозу; это не рекомендация лечения.",
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "我咳嗽，吃过布洛芬"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬",
+        "evidence": [
+          {
+            "turn_id": 2,
+            "quote": "吃过布洛芬，但不记得剂量"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  }
+]

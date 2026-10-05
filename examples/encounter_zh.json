@@ -1,0 +1,8 @@
+{
+  "turns": [
+    {"turn_id": 1, "speaker": "doctor", "text": "哪里不舒服？有发热吗？"},
+    {"turn_id": 2, "speaker": "patient", "text": "我咳嗽两天了，没有发热。"},
+    {"turn_id": 3, "speaker": "doctor", "text": "青霉素过敏吗？吃过什么药？"},
+    {"turn_id": 4, "speaker": "patient", "text": "青霉素过敏情况我不知道。我昨天吃了布洛芬，一次200毫克。"}
+  ]
+}
