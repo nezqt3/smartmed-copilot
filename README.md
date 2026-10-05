@@ -18,15 +18,13 @@ python3 -m venv .venv
 
 Бэкенд под Qwen3.5:4b: извлечение шести фактов, Instructor/Pydantic, проверка цитат,
 SQLite, редактирование с версиями, подтверждение и экспорт JSON.
-[Запуск и объяснение кода](docs/BACKEND_START_HERE.md).
-[Разбор реальных ошибок модели](docs/MODEL_FAILURES_RU.md).
-[Контракт для Дена: запись, форма и все ручки](docs/DEN_FRONTEND_API.md).
 
 ```sh
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
 После запуска: http://127.0.0.1:8000/docs. Контракт для фронтенда: `GET /v1/form`.
+OpenAPI текущего сервера: `GET /openapi.json`.
 Полный SOAP, ASR, ICD и проверка назначений остаются следующим этапом.
 
 ## Структура
@@ -55,13 +53,12 @@ scripts                 прогоны оценки, генерация синт
 
 ## Документы и первые эксперименты
 
-- `docs/` — актуальные документы конкурса.
+- `docs/` — только три актуальных описания проекта: RU / EN / ZH (DOCX).
 - `experiments/01_baseline/` — учебные прогоны локальной модели и результаты.
 - `tools/` — генератор актуальных документов.
 - `archive/` — исходники и предыдущая копия документов из репозитория.
 
 Начни с [объяснения первого запуска](experiments/01_baseline/START_HERE.md).
-[Карта папок](docs/WORKSPACE_GUIDE.md) объясняет, где что лежит.
 
 ```sh
 cd /Users/pavel/Documents/github/smartmed-copilot/experiments/01_baseline
