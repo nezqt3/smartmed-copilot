@@ -3,10 +3,20 @@
 [Русский](README.md) | [English](README.en.md) | **中文**
 
 用于中文门诊病历草稿整理的本地助手。
-当前已实现文本原型：对话 → 六个带原文证据的结构化字段 → 验证 → 草稿 → 人工确认 → JSON导出。
-完整SOAP病历、语音识别、ICD编码映射和用药检查属于后续开发内容。
+当前原型实现：文本对话 → 六个带原文证据的结构化字段 → 验证 → 草稿 → 人工确认 → JSON导出。
+独立的本地ASR服务可转写WAV；提取前必须人工核对转写文本并标注医生和患者角色。
+完整SOAP病历、ICD编码映射和用药检查属于后续开发内容。
 
-## 安装与启动
+## Docker快速启动
+
+```sh
+docker compose up --build -d
+curl http://127.0.0.1:8000/health
+```
+
+首次启动会下载本地模型。独立构建服务和开发模式见[基础设施说明](infra/README.md)。
+
+## 不使用Docker启动
 
 需要Python 3.11及以上版本，以及已安装并运行的Ollama服务。模型权重需单独下载。
 
@@ -18,6 +28,8 @@ ollama pull qwen3.5:4b
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
+此方式只启动文本API；音频转写还需要通过Compose启动独立ASR服务。
+
 ## API
 
 启动后打开[Swagger](http://127.0.0.1:8000/docs)。完整接口定义通过`GET /openapi.json`获取，表单定义通过`GET /v1/form`获取。
@@ -25,6 +37,7 @@ ollama pull qwen3.5:4b
 ```text
 GET  /health
 GET  /v1/form
+POST /v1/audio/transcribe
 POST /v1/drafts
 GET  /v1/drafts/{id}
 PUT  /v1/drafts/{id}
@@ -52,6 +65,8 @@ SQLite保存草稿及版本历史。修改后需重新确认，确认后方可�
 - `experiments/02_model_comparison/` — 本地模型比较.
 - `experiments/03_backend_smoke/` — 生成回归检查.
 - `experiments/04_api_walkthrough/` — 完整HTTP流程演示.
+- `experiments/04_audio_corpus/` — 六段合成中文WAV及来源记录.
+- `infra/`和`services/asr/` — 独立的API、ASR和Ollama服务.
 - `docs/` — 俄语、英语、中文三份项目方案（DOCX）.
 - `tools/` — 文档生成器.
 - `archive/` — 历史资料.

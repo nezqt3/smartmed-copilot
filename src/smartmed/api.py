@@ -1,9 +1,10 @@
 from contextlib import asynccontextmanager
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import Field, ValidationError
 
+from smartmed.audio_client import ASRClient, ASRInvalidAudio, ASRTimeout, ASRUnavailable
 from smartmed.backend_settings import BackendSettings, load_backend_settings
 from smartmed.model_client import (
     GenerationTimeout,
@@ -35,18 +36,21 @@ class ConfirmRequest(StrictModel):
     reviewed: Literal[True]
 
 
-def create_app(settings: BackendSettings | None = None, extractor=None) -> FastAPI:
+def create_app(settings: BackendSettings | None = None, extractor=None, asr_client=None) -> FastAPI:
     settings = settings or load_backend_settings()
     store = DraftStore(settings.database)
 
     @asynccontextmanager
     async def lifespan(app):
         app.state.extractor = extractor or OllamaExtractor(settings)
+        app.state.asr_client = asr_client or ASRClient(settings)
         try:
             yield
         finally:
             if extractor is None:
                 await app.state.extractor.close()
+            if asr_client is None:
+                await app.state.asr_client.close()
 
     app = FastAPI(title="SmartMed 本地病历草稿", version="0.1.0", lifespan=lifespan)
 
@@ -79,6 +83,28 @@ def create_app(settings: BackendSettings | None = None, extractor=None) -> FastA
             "statuses": {"present": "明确存在", "negated": "明确否认", "unknown": "未知"},
             "schema": Extraction.model_json_schema(),
         }
+
+    @app.post("/v1/audio/transcribe")
+    async def transcribe(request: Request):
+        if request.headers.get("content-type", "").split(";")[0] not in {
+            "audio/wav", "audio/x-wav", "audio/wave",
+        }:
+            raise HTTPException(415, detail={"code": "wav_required"})
+        chunks = []
+        size = 0
+        async for chunk in request.stream():
+            size += len(chunk)
+            if size > 5_000_000:
+                raise HTTPException(413, detail={"code": "audio_too_large"})
+            chunks.append(chunk)
+        try:
+            return await app.state.asr_client.transcribe(b"".join(chunks))
+        except ASRInvalidAudio as exc:
+            raise HTTPException(422, detail={"code": "invalid_audio"}) from exc
+        except ASRTimeout as exc:
+            raise HTTPException(504, detail={"code": "asr_timeout"}) from exc
+        except ASRUnavailable as exc:
+            raise HTTPException(503, detail={"code": "asr_unavailable"}) from exc
 
     @app.post("/v1/drafts", response_model=Draft, status_code=201)
     async def generate(request: ExtractRequest):

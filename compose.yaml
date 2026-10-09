@@ -1,0 +1,120 @@
+name: smartmed
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+  ollama-model-init:
+    image: ollama/ollama:latest
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["ollama show qwen3.5:4b >/dev/null 2>&1 || ollama pull qwen3.5:4b"]
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "no"
+
+  asr-model-init:
+    build:
+      context: .
+      dockerfile: infra/docker/asr.Dockerfile
+    command: ["python", "-m", "services.asr.download_model"]
+    environment:
+      SMARTMED_ASR_MODEL_DIR: /models/paraformer-zh
+      HF_HOME: /models/.cache
+    volumes:
+      - asr-models:/models
+    restart: "no"
+
+  asr:
+    build:
+      context: .
+      dockerfile: infra/docker/asr.Dockerfile
+    environment:
+      SMARTMED_ASR_MODEL_DIR: /models/paraformer-zh
+      HF_HUB_OFFLINE: "1"
+      HF_HOME: /models/.cache
+    volumes:
+      - asr-models:/models:ro
+    depends_on:
+      asr-model-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; x=json.load(urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=3)); sys.exit(x['status'] != 'ready')"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    environment:
+      SMARTMED_BACKEND_OLLAMA_URL: http://ollama:11434
+      SMARTMED_BACKEND_ASR_URL: http://asr:8001
+      SMARTMED_BACKEND_DATABASE: /app/data/smartmed.sqlite3
+      SMARTMED_BACKEND_TIMEOUT_S: "180"
+      SMARTMED_BACKEND_CONTEXT_TOKENS: "4096"
+    volumes:
+      - api-data:/app/data
+    ports:
+      - "127.0.0.1:${SMARTMED_API_PORT:-8000}:8000"
+    depends_on:
+      ollama-model-init:
+        condition: service_completed_successfully
+      asr:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; x=json.load(urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)); sys.exit(x['status'] != 'ready')"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+  corpus-check:
+    image: python:3.11-slim
+    profiles: ["checks"]
+    working_dir: /corpus
+    command: ["python", "validate.py"]
+    volumes:
+      - ./experiments/04_audio_corpus:/corpus:ro
+
+  audio-eval:
+    image: python:3.11-slim
+    profiles: ["checks"]
+    working_dir: /corpus
+    command:
+      - python
+      - evaluate.py
+      - --base-url
+      - http://api:8000
+      - --output
+      - /corpus/results/asr.json
+    volumes:
+      - ./experiments/04_audio_corpus:/corpus
+
+volumes:
+  ollama-data:
+  asr-models:
+  api-data:

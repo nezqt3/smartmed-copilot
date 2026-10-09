@@ -1,0 +1,116 @@
+[
+  {
+    "id": "audio_dev_01",
+    "split": "dev",
+    "scenario": "Кашель, явное отрицание температуры и принятый препарат",
+    "turns": [
+      {"speaker": "doctor", "text": "你好，今天哪里不舒服？请从最早出现的症状说起。"},
+      {"speaker": "patient", "text": "我从三天前开始咳嗽，起初只是偶尔咳，现在晚上也会咳。"},
+      {"speaker": "doctor", "text": "这三天有没有发热？您量过体温吗？"},
+      {"speaker": "patient", "text": "没有发热，昨天晚上量过体温，数字我现在记不清。"},
+      {"speaker": "doctor", "text": "咳嗽的时候有没有痰？白天和晚上有什么区别？"},
+      {"speaker": "patient", "text": "有一点痰，白天不太明显，躺下以后咳得更多。"},
+      {"speaker": "doctor", "text": "在来这里之前，您已经吃过什么药吗？"},
+      {"speaker": "patient", "text": "昨天吃了布洛芬一次，包装上写的是二百毫克。"},
+      {"speaker": "doctor", "text": "您知道自己有没有青霉素过敏吗？"},
+      {"speaker": "patient", "text": "青霉素过敏情况我不清楚，以前没有专门检查过。"},
+      {"speaker": "doctor", "text": "我会先记录您说的情况，药盒如果还在请带来核对。"},
+      {"speaker": "patient", "text": "好的，我回家找一下药盒；今天主要是想确认咳嗽的原因。"}
+    ]
+  },
+  {
+    "id": "audio_dev_02",
+    "split": "dev",
+    "scenario": "Исправление длительности и неизвестная доза",
+    "turns": [
+      {"speaker": "doctor", "text": "您好，慢慢说，您这次最担心的是什么？"},
+      {"speaker": "patient", "text": "我最近有点发热，也觉得喉咙不太舒服，想来检查一下。"},
+      {"speaker": "doctor", "text": "您说的发热大概持续了几天？"},
+      {"speaker": "patient", "text": "刚才想说两天，不对，我记错了，应该是四天。"},
+      {"speaker": "doctor", "text": "有没有咳嗽？如果有，是什么时候开始的？"},
+      {"speaker": "patient", "text": "没有咳嗽，主要是发热和喉咙不舒服。"},
+      {"speaker": "doctor", "text": "在家里是否已经服过药？请只说实际吃过的。"},
+      {"speaker": "patient", "text": "吃过对乙酰氨基酚，但是剂量我忘记了，也找不到包装。"},
+      {"speaker": "doctor", "text": "以前使用青霉素的时候，有没有出现过敏反应？"},
+      {"speaker": "patient", "text": "我对青霉素不过敏，以前用过，没有出现不舒服。"},
+      {"speaker": "doctor", "text": "还有其他已经吃过的药吗？"},
+      {"speaker": "patient", "text": "没有了，我刚才说的就是这几天唯一吃过的药。"}
+    ]
+  },
+  {
+    "id": "audio_dev_03",
+    "split": "dev",
+    "scenario": "Сведения родственника и планируемый приём",
+    "turns": [
+      {"speaker": "doctor", "text": "您好，请问是谁身体不舒服？先说您自己的情况。"},
+      {"speaker": "patient", "text": "我今天有点咳嗽，孩子也生病了，但我们情况不一样。"},
+      {"speaker": "doctor", "text": "您的咳嗽从什么时候开始？"},
+      {"speaker": "patient", "text": "我自己的咳嗽是从昨天早上开始的，大概一天。"},
+      {"speaker": "doctor", "text": "您有没有发热？孩子的情况我们稍后单独问。"},
+      {"speaker": "patient", "text": "我没有发热，是孩子昨天晚上发烧了。"},
+      {"speaker": "doctor", "text": "您自己已经吃过药吗？"},
+      {"speaker": "patient", "text": "还没有吃药。我买了布洛芬，不过只是放在家里。"},
+      {"speaker": "doctor", "text": "您本人知道自己是否对青霉素过敏吗？"},
+      {"speaker": "patient", "text": "我不知道。我妈妈对青霉素过敏，但我没有查过。"},
+      {"speaker": "doctor", "text": "明白了，记录时会把您和孩子的信息分开。"},
+      {"speaker": "patient", "text": "谢谢，我只想先把自己的咳嗽情况说明白。"}
+    ]
+  },
+  {
+    "id": "audio_test_01",
+    "split": "test",
+    "scenario": "Доза после коррекции и явная аллергия",
+    "turns": [
+      {"speaker": "doctor", "text": "您好，请描述一下这几天的症状。"},
+      {"speaker": "patient", "text": "我咳嗽了五天，前两天轻一些，昨天晚上明显加重。"},
+      {"speaker": "doctor", "text": "这段时间有没有发热或者感觉身体发烫？"},
+      {"speaker": "patient", "text": "有发热，昨晚尤其明显，不过体温数字没有记下来。"},
+      {"speaker": "doctor", "text": "您已经吃了什么药？请核对实际服用的量。"},
+      {"speaker": "patient", "text": "昨天吃过布洛芬，我刚才差点说成四百毫克。"},
+      {"speaker": "doctor", "text": "请再确认一次，实际吃的是多少？"},
+      {"speaker": "patient", "text": "我看了药盒，实际一次二百毫克，不是四百毫克。"},
+      {"speaker": "doctor", "text": "对青霉素有没有已知的过敏情况？"},
+      {"speaker": "patient", "text": "我对青霉素过敏，以前用后起过皮疹。"},
+      {"speaker": "doctor", "text": "这些是重要信息，我们会在记录里保留原话。"},
+      {"speaker": "patient", "text": "好的，也请把我刚才纠正的剂量写清楚。"}
+    ]
+  },
+  {
+    "id": "audio_test_02",
+    "split": "test",
+    "scenario": "Неуверенность, отрицание кашля и совет врача без приёма",
+    "turns": [
+      {"speaker": "doctor", "text": "您好，今天想咨询什么问题？"},
+      {"speaker": "patient", "text": "我这两天觉得很累，嗓子也有些干，所以来问问。"},
+      {"speaker": "doctor", "text": "您有没有咳嗽？"},
+      {"speaker": "patient", "text": "没有咳嗽，白天和晚上都没有。"},
+      {"speaker": "doctor", "text": "有没有发热？是否量过体温？"},
+      {"speaker": "patient", "text": "我没量过，不知道是不是发热，只是觉得有点热。"},
+      {"speaker": "doctor", "text": "来之前您已经吃过什么药了吗？"},
+      {"speaker": "patient", "text": "没有吃任何药，我想先弄清楚情况再决定。"},
+      {"speaker": "doctor", "text": "之后如果需要用药，会另行讨论，今天先记录症状。"},
+      {"speaker": "patient", "text": "好，我现在不想把任何建议写成已经吃过的药。"},
+      {"speaker": "doctor", "text": "您知道自己是否对青霉素过敏吗？"},
+      {"speaker": "patient", "text": "这件事我不清楚，以前也没有做过相关检查。"}
+    ]
+  },
+  {
+    "id": "audio_test_03",
+    "split": "test",
+    "scenario": "Сложный диалог с отвлекающими числами",
+    "turns": [
+      {"speaker": "doctor", "text": "您好，先别着急，我们按时间顺序说。"},
+      {"speaker": "patient", "text": "我排队号码是二百号，刚才等了很久，不过这不是症状。"},
+      {"speaker": "doctor", "text": "明白了，真正的不舒服从什么时候开始？"},
+      {"speaker": "patient", "text": "咳嗽从一周前开始，昨天比前几天更频繁。"},
+      {"speaker": "doctor", "text": "有没有发热？"},
+      {"speaker": "patient", "text": "没有发热，昨晚只是因为咳嗽没有睡好。"},
+      {"speaker": "doctor", "text": "在家里喝过什么，或者吃过什么药？"},
+      {"speaker": "patient", "text": "喝了两百毫升水，也吃过对乙酰氨基酚。"},
+      {"speaker": "doctor", "text": "药的剂量是多少？水的量不算药物剂量。"},
+      {"speaker": "patient", "text": "药的剂量记不清，药盒也没有带来。"},
+      {"speaker": "doctor", "text": "对青霉素过敏吗？"},
+      {"speaker": "patient", "text": "不过敏，我以前用过青霉素，没有发生过敏反应。"}
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+services:
+  api:
+    volumes:
+      - ./src:/app/src:ro
+    command:
+      - uvicorn
+      - smartmed.api:create_app
+      - --factory
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --reload
+      - --reload-dir
+      - /app/src
+
+  asr:
+    volumes:
+      - ./services:/app/services:ro
+    command:
+      - uvicorn
+      - services.asr.app:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8001"
+      - --reload
+      - --reload-dir
+      - /app/services

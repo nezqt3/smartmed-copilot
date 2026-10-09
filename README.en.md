@@ -3,11 +3,22 @@
 [Русский](README.md) | **English** | [中文](README.zh-CN.md)
 
 A local assistant for drafting Chinese outpatient clinical documentation.
-The current text prototype implements: dialogue → six structured facts with source quotes →
-validation → draft → manual confirmation → JSON export.
-Full SOAP notes, speech recognition, ICD mapping and medication checks are future work.
+The prototype implements: text dialogue → six structured facts with source quotes →
+validation → draft → manual confirmation → JSON export. A separate local ASR service
+transcribes WAV audio; its text and speaker roles require manual review before extraction.
+Full SOAP notes, ICD mapping and medication checks are future work.
 
-## Install and run
+## Docker quick start
+
+```sh
+docker compose up --build -d
+curl http://127.0.0.1:8000/health
+```
+
+The first run downloads local models. See [infrastructure instructions](infra/README.md) for
+independent service rebuilds and development mode.
+
+## Run without Docker
 
 Requires Python 3.11+ and an installed, running Ollama service. Model weights are downloaded separately.
 
@@ -19,6 +30,8 @@ ollama pull qwen3.5:4b
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
+This starts the text API. Audio also needs the separate ASR service from Compose.
+
 ## API
 
 Open [Swagger](http://127.0.0.1:8000/docs) after startup. The full contract is available at `GET /openapi.json`; the form description is at `GET /v1/form`.
@@ -26,6 +39,7 @@ Open [Swagger](http://127.0.0.1:8000/docs) after startup. The full contract is a
 ```text
 GET  /health
 GET  /v1/form
+POST /v1/audio/transcribe
 POST /v1/drafts
 GET  /v1/drafts/{id}
 PUT  /v1/drafts/{id}
@@ -54,6 +68,8 @@ Test cases are synthetic; no clinical validation has been performed.
 - `experiments/02_model_comparison/` — local model comparison.
 - `experiments/03_backend_smoke/` — generation regression checks.
 - `experiments/04_api_walkthrough/` — complete HTTP walkthrough.
+- `experiments/04_audio_corpus/` — six synthetic Chinese WAV clips and provenance.
+- `infra/` and `services/asr/` — separate API, ASR and Ollama services.
 - `docs/` — three project proposals in RU / EN / ZH (DOCX).
 - `tools/` — document generator.
 - `archive/` — previous materials.
