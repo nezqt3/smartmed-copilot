@@ -5,7 +5,7 @@
 用于中文门诊病历草稿整理的本地助手。
 当前原型实现：文本对话 → 六个带原文证据的结构化字段 → 验证 → 草稿 → 人工确认 → JSON导出。
 独立的本地ASR服务可转写WAV；提取前必须人工核对转写文本并标注医生和患者角色。
-完整SOAP病历、ICD编码映射和用药检查属于后续开发内容。
+独立的离线诊断目录使用2019年来源及官方2020年补充代码；尚未取得完整的2022年汇总版。完整SOAP病历、将现行版本编码用于病历以及用药检查属于后续开发内容。
 
 ## Docker快速启动
 
@@ -28,7 +28,7 @@ ollama pull qwen3.5:4b
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
-此方式只启动文本API；音频转写还需要通过Compose启动独立ASR服务。
+此方式启动病历草稿API；音频转写和诊断检索还需通过Compose启动各自的独立服务。
 
 ## API
 
@@ -38,6 +38,9 @@ ollama pull qwen3.5:4b
 GET  /health
 GET  /v1/form
 POST /v1/audio/transcribe
+GET  /v1/diagnoses/catalog
+GET  /v1/diagnoses/search?q=...
+GET  /v1/diagnoses/lookup?code=...
 POST /v1/drafts
 GET  /v1/drafts/{id}
 PUT  /v1/drafts/{id}

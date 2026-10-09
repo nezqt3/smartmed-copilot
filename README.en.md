@@ -6,7 +6,7 @@ A local assistant for drafting Chinese outpatient clinical documentation.
 The prototype implements: text dialogue → six structured facts with source quotes →
 validation → draft → manual confirmation → JSON export. A separate local ASR service
 transcribes WAV audio; its text and speaker roles require manual review before extraction.
-Full SOAP notes, ICD mapping and medication checks are future work.
+A separate offline diagnosis catalog searches a pinned 2019 source with an official 2020 addendum. The complete 2022 edition is not yet available; full SOAP notes, use of current codes in records, and medication checks are future work.
 
 ## Docker quick start
 
@@ -30,7 +30,7 @@ ollama pull qwen3.5:4b
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
-This starts the text API. Audio also needs the separate ASR service from Compose.
+This starts the draft API. Audio and diagnosis search also need their separate Compose services.
 
 ## API
 
@@ -40,6 +40,9 @@ Open [Swagger](http://127.0.0.1:8000/docs) after startup. The full contract is a
 GET  /health
 GET  /v1/form
 POST /v1/audio/transcribe
+GET  /v1/diagnoses/catalog
+GET  /v1/diagnoses/search?q=...
+GET  /v1/diagnoses/lookup?code=...
 POST /v1/drafts
 GET  /v1/drafts/{id}
 PUT  /v1/drafts/{id}

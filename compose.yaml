@@ -61,6 +61,22 @@ services:
       start_period: 30s
     restart: unless-stopped
 
+  terminology:
+    build:
+      context: .
+      dockerfile: infra/docker/terminology.Dockerfile
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; x=json.load(urllib.request.urlopen('http://127.0.0.1:8002/health', timeout=3)); sys.exit(x['status'] != 'ready')"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
   api:
     build:
       context: .
@@ -68,6 +84,7 @@ services:
     environment:
       SMARTMED_BACKEND_OLLAMA_URL: http://ollama:11434
       SMARTMED_BACKEND_ASR_URL: http://asr:8001
+      SMARTMED_BACKEND_TERMINOLOGY_URL: http://terminology:8002
       SMARTMED_BACKEND_DATABASE: /app/data/smartmed.sqlite3
       SMARTMED_BACKEND_TIMEOUT_S: "180"
       SMARTMED_BACKEND_CONTEXT_TOKENS: "4096"
@@ -79,6 +96,8 @@ services:
       ollama-model-init:
         condition: service_completed_successfully
       asr:
+        condition: service_healthy
+      terminology:
         condition: service_healthy
     healthcheck:
       test:

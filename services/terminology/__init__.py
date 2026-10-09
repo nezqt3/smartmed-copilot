@@ -1,0 +1,1 @@
+"""Offline diagnosis terminology service."""

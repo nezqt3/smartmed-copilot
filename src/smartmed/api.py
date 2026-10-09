@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Query, Request
 from pydantic import Field, ValidationError
 
 from smartmed.audio_client import ASRClient, ASRInvalidAudio, ASRTimeout, ASRUnavailable
@@ -22,6 +22,12 @@ from smartmed.schemas.extraction import (
     validate_extraction,
 )
 from smartmed.store import Draft, DraftStore, NotFound, VersionConflict
+from smartmed.terminology_client import (
+    CodeNotFound,
+    TerminologyClient,
+    TerminologyTimeout,
+    TerminologyUnavailable,
+)
 
 
 class EditRequest(StrictModel):
@@ -36,7 +42,8 @@ class ConfirmRequest(StrictModel):
     reviewed: Literal[True]
 
 
-def create_app(settings: BackendSettings | None = None, extractor=None, asr_client=None) -> FastAPI:
+def create_app(settings: BackendSettings | None = None, extractor=None, asr_client=None,
+               terminology_client=None) -> FastAPI:
     settings = settings or load_backend_settings()
     store = DraftStore(settings.database)
 
@@ -44,6 +51,7 @@ def create_app(settings: BackendSettings | None = None, extractor=None, asr_clie
     async def lifespan(app):
         app.state.extractor = extractor or OllamaExtractor(settings)
         app.state.asr_client = asr_client or ASRClient(settings)
+        app.state.terminology_client = terminology_client or TerminologyClient(settings)
         try:
             yield
         finally:
@@ -51,6 +59,8 @@ def create_app(settings: BackendSettings | None = None, extractor=None, asr_clie
                 await app.state.extractor.close()
             if asr_client is None:
                 await app.state.asr_client.close()
+            if terminology_client is None:
+                await app.state.terminology_client.close()
 
     app = FastAPI(title="SmartMed 本地病历草稿", version="0.1.0", lifespan=lifespan)
 
@@ -83,6 +93,40 @@ def create_app(settings: BackendSettings | None = None, extractor=None, asr_clie
             "statuses": {"present": "明确存在", "negated": "明确否认", "unknown": "未知"},
             "schema": Extraction.model_json_schema(),
         }
+
+    @app.get("/v1/diagnoses/catalog")
+    async def diagnosis_catalog():
+        try:
+            return await app.state.terminology_client.catalog()
+        except TerminologyTimeout as exc:
+            raise HTTPException(504, detail={"code": "terminology_timeout"}) from exc
+        except TerminologyUnavailable as exc:
+            raise HTTPException(503, detail={"code": "terminology_unavailable"}) from exc
+
+    @app.get("/v1/diagnoses/search")
+    async def diagnosis_search(q: str = Query(min_length=1, max_length=80),
+                               limit: int = Query(20, ge=1, le=50)):
+        if not q.strip():
+            raise HTTPException(422, detail={"code": "empty_query"})
+        try:
+            return await app.state.terminology_client.search(q, limit)
+        except TerminologyTimeout as exc:
+            raise HTTPException(504, detail={"code": "terminology_timeout"}) from exc
+        except TerminologyUnavailable as exc:
+            raise HTTPException(503, detail={"code": "terminology_unavailable"}) from exc
+
+    @app.get("/v1/diagnoses/lookup")
+    async def diagnosis_lookup(code: str = Query(min_length=1, max_length=40)):
+        if not code.strip():
+            raise HTTPException(422, detail={"code": "empty_code"})
+        try:
+            return await app.state.terminology_client.lookup(code)
+        except CodeNotFound as exc:
+            raise HTTPException(404, detail={"code": "code_not_in_catalog"}) from exc
+        except TerminologyTimeout as exc:
+            raise HTTPException(504, detail={"code": "terminology_timeout"}) from exc
+        except TerminologyUnavailable as exc:
+            raise HTTPException(503, detail={"code": "terminology_unavailable"}) from exc
 
     @app.post("/v1/audio/transcribe")
     async def transcribe(request: Request):

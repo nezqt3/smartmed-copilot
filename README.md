@@ -6,7 +6,7 @@
 Реализован прототип: текстовый диалог → шесть структурированных фактов с цитатами →
 проверка → черновик → ручное подтверждение → экспорт JSON. Для WAV добавлен отдельный
 локальный ASR: его текст необходимо исправить и вручную разделить по ролям перед извлечением.
-Полный SOAP, ICD и проверка назначений — следующие этапы.
+Поиск кодов диагнозов работает отдельно по справочнику 2019 года с официальным дополнением 2020 года. Полная сводная редакция 2022 года пока недоступна; применение актуальной редакции кодов в записи, полный SOAP и проверка назначений — следующие этапы.
 
 ## Быстрый запуск в Docker
 
@@ -30,7 +30,7 @@ ollama pull qwen3.5:4b
 .venv/bin/uvicorn smartmed.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
-Этот способ запускает текстовый API. Для аудио поднимите отдельный ASR-сервис через Compose.
+Этот способ запускает API черновиков. Для аудио и поиска диагнозов поднимите отдельные ASR и terminology через Compose.
 
 ## API
 
@@ -40,6 +40,9 @@ ollama pull qwen3.5:4b
 GET  /health
 GET  /v1/form
 POST /v1/audio/transcribe
+GET  /v1/diagnoses/catalog
+GET  /v1/diagnoses/search?q=...
+GET  /v1/diagnoses/lookup?code=...
 POST /v1/drafts
 GET  /v1/drafts/{id}
 PUT  /v1/drafts/{id}
@@ -69,7 +72,8 @@ SQLite хранит черновики и историю версий. Реда�
 - `experiments/03_backend_smoke/` — регрессии генерации.
 - `experiments/04_api_walkthrough/` — полный HTTP-сценарий.
 - `experiments/04_audio_corpus/` — шесть синтетических китайских WAV и манифест.
-- [`infra/`](infra/README.md) — Docker Compose и отдельные образы API/ASR.
+- [`infra/`](infra/README.md) — Docker Compose и отдельные образы API/ASR/справочника.
+- [`resources/diagnoses/`](resources/diagnoses/README.md) — источник кодов, редакция и ограничения.
 - `docs/` — три описания проекта RU / EN / ZH в DOCX.
 - [`docs/annotation_spec_ru.md`](docs/annotation_spec_ru.md) — правила шести полей и порядок независимой разметки.
 - `tools/` — генератор документов.

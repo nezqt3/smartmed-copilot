@@ -9,6 +9,7 @@ class BackendSettings(BaseModel):
     model_config = ConfigDict(extra="forbid")
     ollama_url: str = "http://127.0.0.1:11434"
     asr_url: str = "http://127.0.0.1:8001"
+    terminology_url: str = "http://127.0.0.1:8002"
     model: str = "qwen3.5:4b"
     database: Path = Path("data/smartmed.sqlite3")
     timeout_s: float = Field(default=90, gt=0, le=300)
@@ -16,14 +17,15 @@ class BackendSettings(BaseModel):
     context_tokens: int = Field(default=8192, ge=4096, le=16384)
     output_tokens: int = Field(default=1600, ge=512, le=4096)
     asr_timeout_s: float = Field(default=180, gt=0, le=300)
+    terminology_timeout_s: float = Field(default=5, gt=0, le=30)
 
-    @field_validator("ollama_url", "asr_url")
+    @field_validator("ollama_url", "asr_url", "terminology_url")
     @classmethod
     def local_only(cls, value: str) -> str:
         url = urlsplit(value)
         if (
             url.scheme != "http"
-            or url.hostname not in {"127.0.0.1", "localhost", "::1", "ollama", "asr"}
+            or url.hostname not in {"127.0.0.1", "localhost", "::1", "ollama", "asr", "terminology"}
             or url.username or url.password or url.query or url.fragment
             or url.path not in {"", "/"}
         ):

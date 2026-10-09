@@ -12,6 +12,5 @@ tests
 tools
 data
 local_annotations
-resources
 .env
 *.docx
