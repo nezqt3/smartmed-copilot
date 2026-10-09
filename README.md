@@ -55,6 +55,7 @@ SQLite хранит черновики и историю версий. Реда�
 - `experiments/03_backend_smoke/` — регрессии генерации.
 - `experiments/04_api_walkthrough/` — полный HTTP-сценарий.
 - `docs/` — три описания проекта RU / EN / ZH в DOCX.
+- [`docs/annotation_spec_ru.md`](docs/annotation_spec_ru.md) — правила шести полей и порядок независимой разметки.
 - `tools/` — генератор документов.
 - `archive/` — предыдущие материалы.
 

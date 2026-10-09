@@ -20,3 +20,4 @@ apps/panel/dist/
 /experiments/02_model_comparison/LATEST_RESULT.txt
 /experiments/03_backend_smoke/results/
 /experiments/04_api_walkthrough/results/
+/local_annotations/

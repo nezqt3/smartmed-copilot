@@ -119,8 +119,25 @@ class Extraction(StrictModel):
                     for evidence in fact.evidence
                 )
                 if not explicit:
+                    ordered = list(info.context["turns"])
+                    for evidence in fact.evidence:
+                        for index, turn in enumerate(ordered):
+                            if turn.turn_id != evidence.turn_id or index == 0:
+                                continue
+                            previous = ordered[index - 1]
+                            if (
+                                previous.speaker == "doctor"
+                                and re.search(r"青霉素.{0,8}过敏", previous.text)
+                                and not re.search(r"和|或|、|以及|布洛芬|其他药", previous.text)
+                                and re.fullmatch(
+                                    r"(?:我)?(?:不|没有|没|无)过敏[。！!，,]?",
+                                    evidence.quote.strip(),
+                                )
+                            ):
+                                explicit = True
+                if not explicit:
                     errors.append(
-                        "青霉素过敏: negated需要明确否认青霉素过敏的完整患者原话；"
+                        "青霉素过敏: negated需要明确否认青霉素过敏的患者原话或紧邻提问的简短回答；"
                         "不知道、没用过、家属过敏均不能证明患者没有过敏"
                     )
             if name == "已用药物" and fact.status == "negated":
