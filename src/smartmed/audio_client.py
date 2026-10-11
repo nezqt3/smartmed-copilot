@@ -39,7 +39,7 @@ class ASRClient:
                 raise ASRInvalidAudio
             response.raise_for_status()
             result = response.json()
-            if not isinstance(result.get("text"), str):
+            if not isinstance(result, dict) or not isinstance(result.get("text"), str):
                 raise ValueError("ASR response has no text")
             return result
         except httpx.TimeoutException as exc:

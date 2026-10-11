@@ -29,7 +29,9 @@ def validate_wav(data: bytes) -> float:
             duration = stream.getnframes() / stream.getframerate()
             if not 0.2 <= duration <= 120:
                 raise ValueError("WAV duration must be 0.2–120 seconds")
-            stream.readframes(1)
+            frames = stream.readframes(stream.getnframes())
+            if len(frames) != stream.getnframes() * stream.getnchannels() * stream.getsampwidth():
+                raise ValueError("Truncated WAV data")
             return round(duration, 3)
     except (EOFError, wave.Error) as exc:
         raise ValueError("Invalid WAV") from exc
@@ -73,8 +75,10 @@ class Recognizer:
                 temporary.flush()
                 self.seed_fn(0)
                 result = self.model.generate(input=temporary.name)
-            if not isinstance(result, list) or not result or not isinstance(
-                result[0].get("text"), str
+            if (
+                not isinstance(result, list)
+                or not result
+                or not isinstance(result[0].get("text"), str)
             ):
                 raise RuntimeError("Unexpected FunASR response")
             return result[0]["text"].strip()

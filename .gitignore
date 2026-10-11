@@ -21,4 +21,11 @@ apps/panel/dist/
 /experiments/03_backend_smoke/results/
 /experiments/04_api_walkthrough/results/
 /local_annotations/
+
+/experiments/05_backend_evaluation/results/
+*.sqlite3.lock
+
+/deliverables/
+*.db.lock
+
 /experiments/04_audio_corpus/results/

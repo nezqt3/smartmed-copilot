@@ -1,0 +1,847 @@
+{
+  "spec_version": "annotation.v1",
+  "contract_version": "extraction.v2",
+  "reviewer": "",
+  "cases": [
+    {
+      "id": "task03_21",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我从前天开始干咳，持续两天，已服用头孢氨苄500毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_22",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没有发热，只是干咳持续八天，没吃药。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_23",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我对青霉素没有过敏，已服用了对乙酰氨基酚250毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_24",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我只是来问药价，目前没有用任何药物。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_25",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我发热十天，还没有服用任何药物。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_26",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我咳嗽持续九天，对青霉素过敏，但未使用任何药物。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_27",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我吃过头孢氨苄一粒，具体规格忘记了。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_28",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没有咳嗽，是否发热不知道，青霉素是否过敏也不知道。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_29",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我曾经对青霉素过敏，昨天已经吃了阿莫西林250毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_30",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我出现发热和咳嗽，两个症状都持续七天。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_31",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没用过青霉素，但是不清楚是否过敏；已经服用了布洛芬400毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_32",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我想明天服用头孢氨苄，今天没有吃任何药。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_33",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我吃了布洛芬，盒子上写每片200毫克，但忘了吃了几片。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_34",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我觉得咳嗽可能是两周，也可能是三周，无法确认。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_35",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没有发热，也没吃药，不知道青霉素过敏情况。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_36",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我刚才说服用了阿莫西林，那是说错了，实际已经服用的是布洛芬100毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_37",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "医生说通常用500毫克，我实际服用的对乙酰氨基酚只有250毫克。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_38",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没有咳嗽，发热持续十二小时，已经服用布洛芬一片。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_39",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我已经服用对乙酰氨基酚和头孢氨苄，具体每种药的剂量不清楚。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    },
+    {
+      "id": "task03_40",
+      "turns": [
+        {
+          "turn_id": 1,
+          "speaker": "patient",
+          "text": "我没有发热，只有咳嗽，咳嗽持续十四天，尚未服用任何药物。"
+        }
+      ],
+      "annotation": {
+        "发热": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": null,
+          "value": null,
+          "evidence": []
+        }
+      }
+    }
+  ]
+}

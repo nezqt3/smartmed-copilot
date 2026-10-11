@@ -122,7 +122,28 @@ def test_asr_client_reports_invalid_audio_and_unavailable_service():
 
 
 def test_compose_service_hosts_are_allowed_but_external_hosts_are_not():
-    settings = BackendSettings(
-        ollama_url="http://ollama:11434", asr_url="http://asr:8001"
-    )
+    settings = BackendSettings(ollama_url="http://ollama:11434", asr_url="http://asr:8001")
     assert settings.asr_url == "http://asr:8001"
+
+
+def test_truncated_wav_is_invalid():
+    with pytest.raises(ValueError, match="Truncated"):
+        validate_wav(wav_bytes()[:46])
+
+
+@pytest.mark.parametrize("payload", [None, []])
+def test_asr_client_rejects_non_object_json(payload):
+    async def run():
+        client = ASRClient(
+            BackendSettings(),
+            transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, json=payload),
+            ),
+        )
+        try:
+            with pytest.raises(ASRUnavailable):
+                await client.transcribe(wav_bytes())
+        finally:
+            await client.close()
+
+    asyncio.run(run())

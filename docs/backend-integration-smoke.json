@@ -1,0 +1,252 @@
+{
+  "kind": "synthetic_integration_smoke",
+  "clinical_validation": false,
+  "input_characters": 8000,
+  "jobs": [
+    {
+      "status": "succeeded",
+      "workflow_passed": true,
+      "document": {
+        "发热": {
+          "status": "negated",
+          "value": null,
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "我咳嗽两天，没有发热。"
+            }
+          ]
+        },
+        "咳嗽": {
+          "status": "present",
+          "value": "咳嗽",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "我咳嗽两天，没有发热。"
+            }
+          ]
+        },
+        "症状持续时间": {
+          "status": "present",
+          "value": "两天",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "我咳嗽两天，没有发热。"
+            }
+          ]
+        },
+        "青霉素过敏": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "已用药物剂量": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        }
+      },
+      "model_metadata": {
+        "model": "qwen3.5:4b",
+        "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+        "prompt_version": "extraction.zh.v7",
+        "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+        "think": false,
+        "context_tokens": 16384,
+        "output_tokens": 1600,
+        "temperature": 0,
+        "seed": 42,
+        "attempts": [
+          {
+            "done_reason": "stop",
+            "prompt_tokens": 1923,
+            "output_tokens": 198,
+            "total_duration_ns": 10384656875
+          }
+        ],
+        "elapsed_s": 37.542,
+        "segments": [
+          {
+            "model": "qwen3.5:4b",
+            "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+            "prompt_version": "extraction.zh.v7",
+            "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+            "think": false,
+            "context_tokens": 16384,
+            "output_tokens": 1600,
+            "temperature": 0,
+            "seed": 42,
+            "attempts": [
+              {
+                "done_reason": "stop",
+                "prompt_tokens": 1923,
+                "output_tokens": 198,
+                "total_duration_ns": 10384656875
+              }
+            ],
+            "elapsed_s": 10.435
+          },
+          {
+            "model": "qwen3.5:4b",
+            "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+            "prompt_version": "extraction.zh.v7",
+            "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+            "think": false,
+            "context_tokens": 16384,
+            "output_tokens": 1600,
+            "temperature": 0,
+            "seed": 42,
+            "attempts": [
+              {
+                "done_reason": "stop",
+                "prompt_tokens": 1923,
+                "output_tokens": 198,
+                "total_duration_ns": 5721775542
+              }
+            ],
+            "elapsed_s": 5.73
+          },
+          {
+            "model": "qwen3.5:4b",
+            "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+            "prompt_version": "extraction.zh.v7",
+            "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+            "think": false,
+            "context_tokens": 16384,
+            "output_tokens": 1600,
+            "temperature": 0,
+            "seed": 42,
+            "attempts": [
+              {
+                "done_reason": "stop",
+                "prompt_tokens": 1923,
+                "output_tokens": 198,
+                "total_duration_ns": 5769197584
+              }
+            ],
+            "elapsed_s": 5.777
+          },
+          {
+            "model": "qwen3.5:4b",
+            "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+            "prompt_version": "extraction.zh.v7",
+            "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+            "think": false,
+            "context_tokens": 16384,
+            "output_tokens": 1600,
+            "temperature": 0,
+            "seed": 42,
+            "attempts": [
+              {
+                "done_reason": "stop",
+                "prompt_tokens": 1923,
+                "output_tokens": 198,
+                "total_duration_ns": 5754053541
+              }
+            ],
+            "elapsed_s": 5.761
+          },
+          {
+            "model": "qwen3.5:4b",
+            "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+            "prompt_version": "extraction.zh.v7",
+            "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+            "think": false,
+            "context_tokens": 16384,
+            "output_tokens": 1600,
+            "temperature": 0,
+            "seed": 42,
+            "attempts": [
+              {
+                "done_reason": "stop",
+                "prompt_tokens": 1190,
+                "output_tokens": 297,
+                "total_duration_ns": 9828947625
+              }
+            ],
+            "elapsed_s": 9.839
+          }
+        ],
+        "segment_count": 5,
+        "merge_conflicts": [],
+        "requested_by": "synthetic-smoke"
+      }
+    },
+    {
+      "status": "succeeded",
+      "workflow_passed": true,
+      "document": {
+        "发热": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "咳嗽": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "症状持续时间": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "青霉素过敏": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        },
+        "已用药物": {
+          "status": "negated",
+          "value": null,
+          "evidence": [
+            {
+              "turn_id": 1,
+              "quote": "我没有吃药。"
+            }
+          ]
+        },
+        "已用药物剂量": {
+          "status": "unknown",
+          "value": null,
+          "evidence": []
+        }
+      },
+      "model_metadata": {
+        "model": "qwen3.5:4b",
+        "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+        "prompt_version": "extraction.zh.v7",
+        "prompt_sha256": "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac",
+        "think": false,
+        "context_tokens": 16384,
+        "output_tokens": 1600,
+        "temperature": 0,
+        "seed": 42,
+        "attempts": [
+          {
+            "done_reason": "stop",
+            "prompt_tokens": 576,
+            "output_tokens": 227,
+            "total_duration_ns": 7234720083
+          }
+        ],
+        "elapsed_s": 7.243,
+        "requested_by": "synthetic-smoke"
+      }
+    }
+  ],
+  "complete": true,
+  "queue_submit_statuses": [
+    202,
+    202
+  ],
+  "overflow_status": 503,
+  "elapsed_s": 45.095
+}

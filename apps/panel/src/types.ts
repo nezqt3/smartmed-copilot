@@ -1,6 +1,6 @@
 export const FIELD_NAMES = ['发热', '咳嗽', '症状持续时间', '青霉素过敏', '已用药物', '已用药物剂量'] as const
 export type FieldName = (typeof FIELD_NAMES)[number]
-export type Speaker = 'doctor' | 'patient'
+export type Speaker = 'doctor' | 'patient' | 'third_party'
 export type Status = 'present' | 'negated' | 'unknown'
 
 export interface Turn {

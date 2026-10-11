@@ -1,0 +1,1177 @@
+[
+  {
+    "id": "task03_01",
+    "dialogue_group_id": "task03_dialogue_01",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_01",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "present",
+        "value": "发热",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "干咳",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "四天",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "present",
+        "value": "对青霉素过敏",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "200毫克",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，伴有干咳，症状持续四天。我对青霉素过敏，已经服用了布洛芬，每次200毫克。"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "task03_02",
+    "dialogue_group_id": "task03_dialogue_02",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_02",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我没有发热，也没有咳嗽，还没有用药。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有发热，也没有咳嗽，还没有用药。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有发热，也没有咳嗽，还没有用药。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有发热，也没有咳嗽，还没有用药。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_03",
+    "dialogue_group_id": "task03_dialogue_03",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_03",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我咳嗽持续五天，没有发热。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽持续五天，没有发热。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽持续五天，没有发热。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "五天",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽持续五天，没有发热。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_04",
+    "dialogue_group_id": "task03_dialogue_04",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_04",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我对青霉素不过敏。昨天已经吃了对乙酰氨基酚，一次500毫克。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我对青霉素不过敏。昨天已经吃了对乙酰氨基酚，一次500毫克。"
+          }
+        ]
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "对乙酰氨基酚",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我对青霉素不过敏。昨天已经吃了对乙酰氨基酚，一次500毫克。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "500毫克",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我对青霉素不过敏。昨天已经吃了对乙酰氨基酚，一次500毫克。"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "task03_05",
+    "dialogue_group_id": "task03_dialogue_05",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_05",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我只有鼻塞，尚不清楚是否发热。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_06",
+    "dialogue_group_id": "task03_dialogue_06",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_06",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我买了阿莫西林，准备晚上再吃，现在没有用药。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我买了阿莫西林，准备晚上再吃，现在没有用药。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_07",
+    "dialogue_group_id": "task03_dialogue_07",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_07",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我发热两天，药的名字和剂量都记不清。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "present",
+        "value": "发热",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热两天，药的名字和剂量都记不清。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "两天",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热两天，药的名字和剂量都记不清。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_08",
+    "dialogue_group_id": "task03_dialogue_08",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_08",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我没有咳嗽，发热持续三天。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "present",
+        "value": "发热",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有咳嗽，发热持续三天。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有咳嗽，发热持续三天。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "三天",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我没有咳嗽，发热持续三天。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_09",
+    "dialogue_group_id": "task03_dialogue_09",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_09",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我已经服用了头孢氨苄，剂量是250毫克，但不清楚青霉素过敏史。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "头孢氨苄",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我已经服用了头孢氨苄，剂量是250毫克，但不清楚青霉素过敏史。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "250毫克",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我已经服用了头孢氨苄，剂量是250毫克，但不清楚青霉素过敏史。"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "task03_10",
+    "dialogue_group_id": "task03_dialogue_10",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_10",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我咳嗽一周，吃过布洛芬，剂量忘了。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽一周，吃过布洛芬，剂量忘了。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "一周",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽一周，吃过布洛芬，剂量忘了。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我咳嗽一周，吃过布洛芬，剂量忘了。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_11",
+    "dialogue_group_id": "task03_dialogue_11",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_11",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我从未使用过青霉素，不知道自己是否过敏。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_12",
+    "dialogue_group_id": "task03_dialogue_12",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_12",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "阿莫西林是医生建议的，我尚未服用，目前没有服用任何药物。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "阿莫西林是医生建议的，我尚未服用，目前没有服用任何药物。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_13",
+    "dialogue_group_id": "task03_dialogue_13",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_13",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我已经吃了布洛芬和对乙酰氨基酚，但记不清各自用了多少。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬和对乙酰氨基酚",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我已经吃了布洛芬和对乙酰氨基酚，但记不清各自用了多少。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_14",
+    "dialogue_group_id": "task03_dialogue_14",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_14",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 2,
+        "speaker": "third_party",
+        "text": "我是他的哥哥，我对青霉素过敏，已经吃了阿莫西林500毫克。"
+      },
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我说不清是否发热，也不确定有没有咳嗽。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_15",
+    "dialogue_group_id": "task03_dialogue_15",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_15",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我已经吃了阿莫西林两粒，每粒多少毫克不清楚。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "阿莫西林",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我已经吃了阿莫西林两粒，每粒多少毫克不清楚。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "两粒",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我已经吃了阿莫西林两粒，每粒多少毫克不清楚。"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "task03_16",
+    "dialogue_group_id": "task03_dialogue_16",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_16",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我今天没有吃药，但昨天吃了布洛芬200毫克。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我今天没有吃药，但昨天吃了布洛芬200毫克。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "present",
+        "value": "200毫克",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我今天没有吃药，但昨天吃了布洛芬200毫克。"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "task03_17",
+    "dialogue_group_id": "task03_dialogue_17",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_17",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我喝了300毫升水，排队号码是18，已经服用了布洛芬，但剂量忘了。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "present",
+        "value": "布洛芬",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我喝了300毫升水，排队号码是18，已经服用了布洛芬，但剂量忘了。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_18",
+    "dialogue_group_id": "task03_dialogue_18",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_18",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我对青霉素过敏。我没有用药。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "present",
+        "value": "对青霉素过敏",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我对青霉素过敏。我没有用药。"
+          }
+        ]
+      },
+      "已用药物": {
+        "status": "negated",
+        "value": null,
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我对青霉素过敏。我没有用药。"
+          }
+        ]
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_19",
+    "dialogue_group_id": "task03_dialogue_19",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_19",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我发热，不是三天，刚才说错了，发热持续六天。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "present",
+        "value": "发热",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，不是三天，刚才说错了，发热持续六天。"
+          }
+        ]
+      },
+      "咳嗽": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "症状持续时间": {
+        "status": "present",
+        "value": "六天",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我发热，不是三天，刚才说错了，发热持续六天。"
+          }
+        ]
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  },
+  {
+    "id": "task03_20",
+    "dialogue_group_id": "task03_dialogue_20",
+    "split": "development",
+    "source_id": "smartmed_synthetic_task03_v1",
+    "source_record_id": "synthetic_20",
+    "source_version": "task03.candidate.v1",
+    "human_reviewed": false,
+    "clinical_reviewed": false,
+    "turns": [
+      {
+        "turn_id": 1,
+        "speaker": "patient",
+        "text": "我一会儿说咳嗽两天，一会儿说五天，实在记不清开始时间。"
+      }
+    ],
+    "gold": {
+      "发热": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "咳嗽": {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [
+          {
+            "turn_id": 1,
+            "quote": "我一会儿说咳嗽两天，一会儿说五天，实在记不清开始时间。"
+          }
+        ]
+      },
+      "症状持续时间": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "青霉素过敏": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      },
+      "已用药物剂量": {
+        "status": "unknown",
+        "value": null,
+        "evidence": []
+      }
+    }
+  }
+]

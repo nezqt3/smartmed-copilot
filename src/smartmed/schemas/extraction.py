@@ -6,7 +6,8 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, model_validator
 
 FIELDS = ("发热", "咳嗽", "症状持续时间", "青霉素过敏", "已用药物", "已用药物剂量")
-CONTRACT_VERSION = "extraction.v1"
+CONTRACT_VERSION = "extraction.v2"
+MAX_INPUT_CHARS = 8000
 Text = Annotated[str, Field(min_length=1, max_length=2000)]
 
 
@@ -16,8 +17,8 @@ class StrictModel(BaseModel):
 
 class Turn(StrictModel):
     turn_id: int = Field(ge=1)
-    speaker: Literal["patient", "doctor"]
-    text: Text
+    speaker: Literal["patient", "doctor", "third_party"]
+    text: Annotated[str, Field(min_length=1, max_length=MAX_INPUT_CHARS)]
 
     @model_validator(mode="after")
     def nonblank(self):
@@ -27,15 +28,15 @@ class Turn(StrictModel):
 
 
 class ExtractRequest(StrictModel):
-    turns: list[Turn] = Field(min_length=1, max_length=40)
+    turns: list[Turn] = Field(min_length=1, max_length=160)
 
     @model_validator(mode="after")
     def input_bounds(self):
         ids = [turn.turn_id for turn in self.turns]
         if len(ids) != len(set(ids)):
             raise ValueError("turn_id必须唯一")
-        if sum(len(turn.text) for turn in self.turns) > 2000:
-            raise ValueError("本原型每次最多接收2000个字符；请勿静默截断对话")
+        if sum(len(turn.text) for turn in self.turns) > MAX_INPUT_CHARS:
+            raise ValueError("本原型每次最多接收8000个字符；请勿静默截断对话")
         return self
 
 
@@ -127,8 +128,10 @@ class Extraction(StrictModel):
                             previous = ordered[index - 1]
                             if (
                                 previous.speaker == "doctor"
-                                and re.search(r"青霉素.{0,8}过敏", previous.text)
-                                and not re.search(r"和|或|、|以及|布洛芬|其他药", previous.text)
+                                and re.fullmatch(
+                                    r"(?:你|您)?(?:对)?青霉素(?:有)?过敏(?:吗|么)?[？?]",
+                                    previous.text.strip(),
+                                )
                                 and re.fullmatch(
                                     r"(?:我)?(?:不|没有|没|无)过敏[。！!，,]?",
                                     evidence.quote.strip(),

@@ -18,6 +18,7 @@ from tenacity import AsyncRetrying, stop_after_attempt
 from smartmed.backend_settings import BackendSettings
 from smartmed.prompt import PROMPT_VERSION, SYSTEM_PROMPT
 from smartmed.schemas.extraction import Extraction, ExtractRequest, validate_extraction
+from smartmed.segmentation import merge, segments
 
 
 class ModelUnavailable(Exception):
@@ -117,8 +118,18 @@ class OllamaExtractor:
             raise ModelBusy
         async with self.lock:
             try:
-                async with asyncio.timeout(self.settings.timeout_s):
-                    return await self._extract(request)
+                batches = segments(request)
+                async with asyncio.timeout(self.settings.timeout_s * len(batches)):
+                    results = [await self._extract(batch) for batch in batches]
+                    if len(results) == 1:
+                        return results[0]
+                    document, conflicts = merge([r.document for r in results], request.turns)
+                    return ExtractionResult(document, {
+                        **results[0].metadata,
+                        "segments": [r.metadata for r in results],
+                        "segment_count": len(results), "merge_conflicts": conflicts,
+                        "elapsed_s": round(sum(r.metadata["elapsed_s"] for r in results), 3),
+                    })
             except TimeoutError as exc:
                 raise GenerationTimeout from exc
 

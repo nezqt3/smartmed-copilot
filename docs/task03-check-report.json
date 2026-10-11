@@ -1,0 +1,121 @@
+{
+  "checked_on": "2026-10-09",
+  "kind": "assistant_structural_and_fixture_review",
+  "reviewer": "Codex assistant, not Pavel or independent human annotator",
+  "human_cross_review_complete": false,
+  "clinical_review_complete": false,
+  "model_evaluation_performed": false,
+  "total_cases": 40,
+  "split_counts": {
+    "development": 20,
+    "heldout_candidate": 20
+  },
+  "validated_fields": 240,
+  "status_counts": {
+    "present": 65,
+    "negated": 22,
+    "unknown": 153
+  },
+  "cross_split_ids_groups_and_exact_transcript_overlap": 0,
+  "exact_overlap_with_previous_experiment_transcripts": 0,
+  "manifest": {
+    "dataset_version": "task03.candidate.v1",
+    "created_on": "2026-10-09",
+    "contract_version": "extraction.v2",
+    "state": "candidate_pending_two_human_reviews",
+    "model_evaluated": false,
+    "clinically_validated": false,
+    "files": {
+      "development.json": {
+        "cases": 20,
+        "sha256": "2a034a09be9473263d7700311617a05ca1739c5d4d1b5345a62632c8ed7ea154"
+      },
+      "heldout_candidate.json": {
+        "cases": 20,
+        "sha256": "2e8712451a1751cee79deb655d336fa529e0e96360fb2b63743b92753ed881ed"
+      }
+    }
+  },
+  "selected_api_checks": [
+    {
+      "id": "task03_11",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Никогда не применял пенициллин: аллергия unknown, не negated."
+    },
+    {
+      "id": "task03_12",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Рекомендация не означает приём; пациент явно отрицает любой приём."
+    },
+    {
+      "id": "task03_13",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Два препарата есть, связь дозы с каждым неизвестна: доза unknown."
+    },
+    {
+      "id": "task03_14",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Сведения брата исключены; сомнения пациента означают unknown."
+    },
+    {
+      "id": "task03_15",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Фактически приняты две капсулы; не угадывать миллиграммы."
+    },
+    {
+      "id": "task03_16",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Отрицание сегодня не отменяет фактический приём вчера."
+    },
+    {
+      "id": "task03_17",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Вода и номер очереди не являются дозой; доза unknown."
+    },
+    {
+      "id": "task03_18",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Аллергия present, отсутствие приёма negated, доза unknown."
+    },
+    {
+      "id": "task03_19",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Явное исправление трёх дней на шесть: использовать шесть."
+    },
+    {
+      "id": "task03_20",
+      "create": 201,
+      "read": 200,
+      "edit": 200,
+      "exact_fields_and_quotes_preserved": true,
+      "note_ru": "Неразрешённые два/пять дней: длительность unknown, кашель present."
+    }
+  ]
+}

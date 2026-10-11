@@ -1,0 +1,32 @@
+{
+  "checked_on": "2026-10-09",
+  "sources": [
+    {
+      "id": "smartmed_synthetic_task03_v1",
+      "version": "task03.candidate.v1",
+      "kind": "synthetic_assistant_authored",
+      "origin": "datasets/task03/build.py",
+      "included_cases": 40,
+      "external_text_copied": false,
+      "usage": "Учебные вымышленные тексты, созданные в этом проекте; не записи пациентов и не клинические эталоны.",
+      "human_reviewed": false,
+      "clinical_reviewed": false
+    },
+    {
+      "id": "imcs21",
+      "kind": "external_candidate_not_imported",
+      "url": "https://github.com/lemuria-wchen/imcs21",
+      "version": "836048f491704011dba229a5bd04db5f7f4d2bbe",
+      "availability": "GitHub README и дерево коммита доступны; есть dataset/train.json, dev.json, test.json и test_input.json. Сам корпус не скачивался.",
+      "conditions": "В проверенном дереве нет файла с license в имени. README требует цитировать исходную статью; явное разрешение на распространение данных не подтверждено. Денису проверить условия у авторов/площадки до включения текстов.",
+      "conditions_verified": false,
+      "included_cases": 0,
+      "mapping": "Отчёты и symptom labels IMCS21 нельзя считать gold extraction.v2 без новой разметки шести полей и точных цитат.",
+      "citation_doi": "10.1093/bioinformatics/btac817",
+      "inspection_urls": [
+        "https://github.com/lemuria-wchen/imcs21/blob/836048f491704011dba229a5bd04db5f7f4d2bbe/README.md",
+        "https://api.github.com/repos/lemuria-wchen/imcs21/git/trees/836048f491704011dba229a5bd04db5f7f4d2bbe?recursive=1"
+      ]
+    }
+  ]
+}

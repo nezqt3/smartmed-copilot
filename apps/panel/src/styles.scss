@@ -74,3 +74,13 @@ textarea { resize: vertical; }
 
 @media (max-width: 1050px) { .content-grid { grid-template-columns: 1fr; } .empty-state { min-height: 320px; } }
 @media (max-width: 640px) { .site-header, .page { padding-left: 17px; padding-right: 17px; } .site-header { min-height: 69px; } .brand strong { font-size: 14px; } .brand small { font-size: 7px; } .prototype-tag { display: none; } .service-status { font-size: 10px; } .panel { padding: 17px; } .fact-grid { grid-template-columns: 1fr; } .site-footer { flex-direction: column; } }
+
+.outpatient-section { border-top: 1px solid #dfe9e4; padding: 16px 0; }
+.clinical-item { margin: 12px 0; padding: 12px; background: #f3f7f5; border-radius: 8px; }
+.clinical-item textarea { display: block; width: 100%; min-height: 70px; }
+.clinical-item small { display: block; margin: 8px 0; }
+.clinical-item blockquote { margin: 8px 0; padding: 8px; border-left: 3px solid #1599a1; }
+.outpatient-section label { display: block; margin-top: 12px; }
+.panel { padding: 24px; }
+input[type=checkbox] { width: auto; }
+@media(max-width: 800px) { .workspace { grid-template-columns: 1fr !important; } }

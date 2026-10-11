@@ -1,0 +1,57 @@
+{
+  "turns": [
+    {
+      "turn_id": 1,
+      "speaker": "doctor",
+      "text": "今天哪里不舒服？"
+    },
+    {
+      "turn_id": 2,
+      "speaker": "patient",
+      "text": "我咳嗽两天了，还有咽痛，没有发热。"
+    },
+    {
+      "turn_id": 3,
+      "speaker": "doctor",
+      "text": "以前有什么疾病？药物过敏情况呢？"
+    },
+    {
+      "turn_id": 4,
+      "speaker": "patient",
+      "text": "我有高血压病史。青霉素过敏情况我不知道。"
+    },
+    {
+      "turn_id": 5,
+      "speaker": "patient",
+      "text": "我昨天吃了布洛芬，一次200毫克。"
+    },
+    {
+      "turn_id": 6,
+      "speaker": "doctor",
+      "text": "今天测量体温36.8摄氏度，咽部充血。"
+    },
+    {
+      "turn_id": 7,
+      "speaker": "patient",
+      "text": "昨天的血常规报告我没带，不知道结果。"
+    },
+    {
+      "turn_id": 8,
+      "speaker": "doctor",
+      "text": "初步考虑上呼吸道感染，尚未确诊。"
+    },
+    {
+      "turn_id": 9,
+      "speaker": "doctor",
+      "text": "建议多饮水、休息，三天后复诊；如果出现呼吸困难请及时就医。"
+    }
+  ],
+  "transcript_reviewed": true,
+  "patient": {
+    "name": "演示患者"
+  },
+  "encounter": {
+    "department": "全科门诊",
+    "visit_type": "initial"
+  }
+}

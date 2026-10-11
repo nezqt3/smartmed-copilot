@@ -1,0 +1,143 @@
+{
+  "kind": "production_backend_synthetic_regression",
+  "dataset_sha256": "3d8c9903b3edddd8c352722f47af1b2e6ec2c311f75e0d89d3ec61fd9755efcd",
+  "human_reviewed": false,
+  "clinical_validation": false,
+  "prompt_version": "extraction.zh.v7",
+  "models": {
+    "qwen3.5:4b": {
+      "cases": 30,
+      "successful_cases": 30,
+      "field_count": 180,
+      "status_accuracy": 1.0,
+      "exact_status_value": 0.9944444444444445,
+      "grounded_populated_fields": 24,
+      "populated_fields": 24,
+      "grounding_rate": 1.0,
+      "false_positive_fields": 0,
+      "nonpositive_gold_fields": 164,
+      "false_positive_rate": 0.0,
+      "false_negative_fields": 0,
+      "positive_gold_fields": 16,
+      "false_negative_rate": 0.0,
+      "simulated_field_corrections_mean": 0.03333333333333333,
+      "workflow_passes": 30,
+      "median_request_seconds": 6.605,
+      "digests": [
+        "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd"
+      ],
+      "prompt_sha256": [
+        "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac"
+      ]
+    },
+    "qwen2.5:3b": {
+      "cases": 30,
+      "successful_cases": 21,
+      "field_count": 180,
+      "status_accuracy": 0.6833333333333333,
+      "exact_status_value": 0.6722222222222223,
+      "grounded_populated_fields": 19,
+      "populated_fields": 19,
+      "grounding_rate": 1.0,
+      "false_positive_fields": 1,
+      "nonpositive_gold_fields": 164,
+      "false_positive_rate": 0.006097560975609756,
+      "false_negative_fields": 2,
+      "positive_gold_fields": 16,
+      "false_negative_rate": 0.125,
+      "simulated_field_corrections_mean": 0.23809523809523808,
+      "workflow_passes": 21,
+      "median_request_seconds": 4.114,
+      "digests": [
+        "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b"
+      ],
+      "prompt_sha256": [
+        "642cb97fb7932bd6c1ef15dd5b848f3bef5d3f2bb9ee5b8069ad8b686ffcefac"
+      ]
+    }
+  },
+  "historical_models": {
+    "qwen2.5:3b": {
+      "cases": 40,
+      "failed_requests": 0,
+      "valid_cases": 32,
+      "status_correct": 220,
+      "field_count": 240,
+      "status_accuracy": 0.9166666666666666,
+      "status_macro_f1": 0.8260974595688763,
+      "f1_by_status": {
+        "present": 0.8791208791208791,
+        "negated": 0.6470588235294118,
+        "unknown": 0.952112676056338
+      },
+      "exact_status_value": 0.85,
+      "unsupported_positive_fields": 11,
+      "missed_positive_fields": 0
+    },
+    "qwen3:4b-instruct": {
+      "cases": 40,
+      "failed_requests": 0,
+      "valid_cases": 37,
+      "status_correct": 230,
+      "field_count": 240,
+      "status_accuracy": 0.9583333333333334,
+      "status_macro_f1": 0.9151282199487506,
+      "f1_by_status": {
+        "present": 0.9367088607594937,
+        "negated": 0.8333333333333334,
+        "unknown": 0.9753424657534246
+      },
+      "exact_status_value": 0.85,
+      "unsupported_positive_fields": 2,
+      "missed_positive_fields": 3
+    },
+    "qwen3.5:4b": {
+      "cases": 40,
+      "failed_requests": 0,
+      "valid_cases": 28,
+      "status_correct": 235,
+      "field_count": 240,
+      "status_accuracy": 0.9791666666666666,
+      "status_macro_f1": 0.9541773436346004,
+      "f1_by_status": {
+        "present": 0.9873417721518988,
+        "negated": 0.8888888888888888,
+        "unknown": 0.9863013698630136
+      },
+      "exact_status_value": 0.9041666666666667,
+      "unsupported_positive_fields": 0,
+      "missed_positive_fields": 1
+    },
+    "qwen2.5:7b": {
+      "cases": 40,
+      "failed_requests": 0,
+      "valid_cases": 33,
+      "status_correct": 233,
+      "field_count": 240,
+      "status_accuracy": 0.9708333333333333,
+      "status_macro_f1": 0.9378229555613148,
+      "f1_by_status": {
+        "present": 0.975609756097561,
+        "negated": 0.8571428571428571,
+        "unknown": 0.9807162534435262
+      },
+      "exact_status_value": 0.9166666666666666,
+      "unsupported_positive_fields": 2,
+      "missed_positive_fields": 0
+    }
+  },
+  "integration_smoke": {
+    "kind": "synthetic_integration_smoke",
+    "clinical_validation": false,
+    "input_characters": 8000,
+    "complete": true,
+    "queue_submit_statuses": [
+      202,
+      202
+    ],
+    "overflow_status": 503,
+    "elapsed_s": 45.095,
+    "segment_count": 5,
+    "workflow_passes": 2
+  }
+}

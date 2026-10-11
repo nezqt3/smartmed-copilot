@@ -20,16 +20,17 @@ export function TranscriptEditor({ turns, disabled, onChange }: Props) {
             disabled={disabled} onChange={event => update(index, { speaker: event.target.value as Turn['speaker'] })}>
             <option value="doctor">医生</option>
             <option value="patient">患者</option>
+            <option value="third_party">家属 / 其他</option>
           </select>
           <button className="text-button danger-text" type="button" disabled={disabled || turns.length === 1}
             onClick={() => onChange(turns.filter((_, i) => i !== index))}>删除</button>
         </div>
         <textarea aria-label={`第 ${index + 1} 句内容`} rows={2} value={turn.text} disabled={disabled}
-          maxLength={2000} placeholder="输入对话内容"
+          maxLength={8000} placeholder="输入对话内容"
           onChange={event => update(index, { text: event.target.value })} />
       </div>
     </div>)}
-    <button type="button" className="add-turn" disabled={disabled || turns.length >= 40}
+    <button type="button" className="add-turn" disabled={disabled || turns.length >= 160}
       onClick={() => onChange([...turns, { turn_id: Math.max(0, ...turns.map(turn => turn.turn_id)) + 1,
         speaker: turns.at(-1)?.speaker === 'doctor' ? 'patient' : 'doctor', text: '' }])}>
       <span>＋</span> 添加一句对话

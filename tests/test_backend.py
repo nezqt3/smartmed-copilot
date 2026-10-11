@@ -26,36 +26,54 @@ def blank():
 
 
 def turns():
-    return [Turn(turn_id=1, speaker="doctor", text="青霉素过敏吗？"),
-            Turn(turn_id=2, speaker="patient", text="咳嗽两天，没有发热。青霉素过敏情况不知道。")]
+    return [
+        Turn(turn_id=1, speaker="doctor", text="青霉素过敏吗？"),
+        Turn(turn_id=2, speaker="patient", text="咳嗽两天，没有发热。青霉素过敏情况不知道。"),
+    ]
 
 
 def good():
     answer = blank()
-    answer["咳嗽"] = {"status": "present", "value": "咳嗽",
-                      "evidence": [{"turn_id": 2, "quote": "咳嗽两天"}]}
-    answer["发热"] = {"status": "negated", "value": None,
-                      "evidence": [{"turn_id": 2, "quote": "没有发热"}]}
+    answer["咳嗽"] = {
+        "status": "present",
+        "value": "咳嗽",
+        "evidence": [{"turn_id": 2, "quote": "咳嗽两天"}],
+    }
+    answer["发热"] = {
+        "status": "negated",
+        "value": None,
+        "evidence": [{"turn_id": 2, "quote": "没有发热"}],
+    }
     return answer
 
 
-@pytest.mark.parametrize("fault", ["fabricated", "doctor", "duration", "allergy", "no_quote",
-                                 "unrelated_negation"])
+@pytest.mark.parametrize(
+    "fault", ["fabricated", "doctor", "duration", "allergy", "no_quote", "unrelated_negation"]
+)
 def test_bad_evidence_and_known_semantic_mistakes_are_rejected(fault):
     answer = good()
     if fault == "fabricated":
         answer["咳嗽"]["evidence"][0]["quote"] = "咳嗽一个月"
     elif fault == "doctor":
-        answer["青霉素过敏"] = {"status": "present", "value": "青霉素过敏",
-                               "evidence": [{"turn_id": 1, "quote": "青霉素过敏吗？"}]}
+        answer["青霉素过敏"] = {
+            "status": "present",
+            "value": "青霉素过敏",
+            "evidence": [{"turn_id": 1, "quote": "青霉素过敏吗？"}],
+        }
     elif fault == "duration":
         answer["咳嗽"]["value"] = "两天"
     elif fault == "allergy":
-        answer["青霉素过敏"] = {"status": "negated", "value": None,
-                               "evidence": [{"turn_id": 2, "quote": "青霉素过敏情况不知道"}]}
+        answer["青霉素过敏"] = {
+            "status": "negated",
+            "value": None,
+            "evidence": [{"turn_id": 2, "quote": "青霉素过敏情况不知道"}],
+        }
     elif fault == "unrelated_negation":
-        answer["已用药物"] = {"status": "negated", "value": None,
-                            "evidence": [{"turn_id": 2, "quote": "没有发热"}]}
+        answer["已用药物"] = {
+            "status": "negated",
+            "value": None,
+            "evidence": [{"turn_id": 2, "quote": "没有发热"}],
+        }
     else:
         answer["发热"]["evidence"] = []
     with pytest.raises(ValidationError):
@@ -64,8 +82,11 @@ def test_bad_evidence_and_known_semantic_mistakes_are_rejected(fault):
 
 def test_explicit_negation_is_allowed_but_unknown_is_not_rewritten():
     answer = blank()
-    answer["青霉素过敏"] = {"status": "negated", "value": None,
-                           "evidence": [{"turn_id": 1, "quote": "我对青霉素不过敏"}]}
+    answer["青霉素过敏"] = {
+        "status": "negated",
+        "value": None,
+        "evidence": [{"turn_id": 1, "quote": "我对青霉素不过敏"}],
+    }
     source = [Turn(turn_id=1, speaker="patient", text="我对青霉素不过敏。")]
     assert validate_extraction(answer, source).青霉素过敏.status == "negated"
     assert validate_extraction(good(), turns()).青霉素过敏.status == "unknown"
@@ -73,14 +94,24 @@ def test_explicit_negation_is_allowed_but_unknown_is_not_rewritten():
 
 def test_explicit_no_medication_has_null_value_and_literal_evidence():
     answer = blank()
-    answer["已用药物"] = {"status": "negated", "value": None,
-                        "evidence": [{"turn_id": 1, "quote": "我还没有吃药。"}]}
+    answer["已用药物"] = {
+        "status": "negated",
+        "value": None,
+        "evidence": [{"turn_id": 1, "quote": "我还没有吃药。"}],
+    }
     source = [Turn(turn_id=1, speaker="patient", text="我还没有吃药。")]
     assert validate_extraction(answer, source).已用药物.status == "negated"
 
 
-@pytest.mark.parametrize("bad", ["https://api.example.com", "http://192.168.1.2:11434",
-                                 "http://127.0.0.1:11434/api", "http://localhost@evil.test"])
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "https://api.example.com",
+        "http://192.168.1.2:11434",
+        "http://127.0.0.1:11434/api",
+        "http://localhost@evil.test",
+    ],
+)
 def test_external_model_endpoints_are_rejected(bad):
     with pytest.raises(ValidationError):
         BackendSettings(ollama_url=bad)
@@ -90,8 +121,12 @@ def test_duplicate_ids_and_overlong_transcripts_rejected():
     with pytest.raises(ValidationError):
         ExtractRequest(turns=[turns()[0], turns()[0]])
     with pytest.raises(ValidationError):
-        ExtractRequest(turns=[Turn(turn_id=1, speaker="patient", text="字" * 2000),
-                              Turn(turn_id=2, speaker="patient", text="字")])
+        ExtractRequest(
+            turns=[
+                Turn(turn_id=1, speaker="patient", text="字" * 8000),
+                Turn(turn_id=2, speaker="patient", text="字"),
+            ]
+        )
 
 
 def test_generated_quote_choices_preserve_spaces_ids_and_schema_isolation():
@@ -99,10 +134,12 @@ def test_generated_quote_choices_preserve_spaces_ids_and_schema_isolation():
 
     schema = Extraction.model_json_schema()
     original = copy.deepcopy(schema)
-    request = ExtractRequest(turns=[
-        Turn(turn_id=1, speaker="doctor", text="请吃500毫克。"),
-        Turn(turn_id=2, speaker="patient", text="我吃了布洛芬，一次200毫克。"),
-    ])
+    request = ExtractRequest(
+        turns=[
+            Turn(turn_id=1, speaker="doctor", text="请吃500毫克。"),
+            Turn(turn_id=2, speaker="patient", text="我吃了布洛芬，一次200毫克。"),
+        ]
+    )
     patched = grounded_schema(schema, request)
     assert schema == original
     variants = patched["$defs"]["Evidence"]["anyOf"]
@@ -127,8 +164,24 @@ class FakeExtractor:
 
 
 def test_api_edit_confirm_export_and_revision_conflicts(tmp_path):
-    app = create_app(BackendSettings(database=tmp_path / "test.sqlite3"), FakeExtractor())
+    app = create_app(
+        BackendSettings(
+            database=tmp_path / "test.sqlite3", auth_database=tmp_path / "staff.sqlite3"
+        ),
+        FakeExtractor(),
+    )
+    from smartmed.auth import AuthStore
+
+    AuthStore(tmp_path / "staff.sqlite3").add_staff("pavel", "test-passcode-123")
     with TestClient(app) as client:
+        login = client.post(
+            "/v1/auth/login",
+            json={
+                "staff_id": "pavel",
+                "passcode": "test-passcode-123",
+            },
+        )
+        client.headers["Authorization"] = "Bearer " + login.json()["access_token"]
         payload = {"turns": [turn.model_dump() for turn in turns()]}
         response = client.post("/v1/drafts", json=payload)
         assert response.status_code == 201
@@ -138,32 +191,62 @@ def test_api_edit_confirm_export_and_revision_conflicts(tmp_path):
         assert client.get(url + "/export").status_code == 409
         corrupt = copy.deepcopy(good())
         corrupt["咳嗽"]["evidence"][0]["quote"] = "咳嗽一个月"
-        assert client.put(url, json={"expected_version": 1, "actor": "pavel",
-                                     "document": corrupt}).status_code == 422
-        confirmed = client.post(url + "/confirm", json={
-            "expected_version": 1, "reviewer": "demo-reviewer", "reviewed": True,
-        })
+        assert (
+            client.put(
+                url, json={"expected_version": 1, "actor": "pavel", "document": corrupt}
+            ).status_code
+            == 422
+        )
+        confirmed = client.post(
+            url + "/confirm",
+            json={
+                "expected_version": 1,
+                "reviewer": "pavel",
+                "reviewed": True,
+            },
+        )
         assert confirmed.status_code == 200
         assert client.get(url + "/export").json()["version"] == 2
-        assert client.put(url, json={"expected_version": 1, "actor": "pavel",
-                                     "document": good()}).status_code == 409
-        edited = client.put(url, json={"expected_version": 2, "actor": "pavel",
-                                      "document": good()})
+        assert (
+            client.put(
+                url, json={"expected_version": 1, "actor": "pavel", "document": good()}
+            ).status_code
+            == 409
+        )
+        edited = client.put(url, json={"expected_version": 2, "actor": "pavel", "document": good()})
         assert edited.json()["state"] == "requires_review"
         assert edited.json()["reviewer"] is None
         assert client.get(url + "/export").status_code == 409
         revisions = client.get(url + "/history").json()
         assert [r["action"] for r in revisions] == ["generated", "confirmed", "edited"]
-        assert client.get("/v1/form").json()["contract_version"] == "extraction.v1"
+        assert client.get("/v1/form").json()["contract_version"] == "extraction.v2"
 
 
-@pytest.mark.parametrize("error,status", [(InvalidGeneration, 502), (ModelUnavailable, 503),
-                                         (ModelBusy, 503), (GenerationTimeout, 504)])
+@pytest.mark.parametrize(
+    "error,status",
+    [(InvalidGeneration, 502), (ModelUnavailable, 503), (ModelBusy, 503), (GenerationTimeout, 504)],
+)
 def test_api_failure_has_no_successful_draft(tmp_path, error, status):
     fake = FakeExtractor()
     fake.error = error()
-    app = create_app(BackendSettings(database=tmp_path / "test.sqlite3"), fake)
+    app = create_app(
+        BackendSettings(
+            database=tmp_path / "test.sqlite3", auth_database=tmp_path / "staff.sqlite3"
+        ),
+        fake,
+    )
+    from smartmed.auth import AuthStore
+
+    AuthStore(tmp_path / "staff.sqlite3").add_staff("pavel", "test-passcode-123")
     with TestClient(app) as client:
+        login = client.post(
+            "/v1/auth/login",
+            json={
+                "staff_id": "pavel",
+                "passcode": "test-passcode-123",
+            },
+        )
+        client.headers["Authorization"] = "Bearer " + login.json()["access_token"]
         response = client.post("/v1/drafts", json={"turns": [t.model_dump() for t in turns()]})
         assert response.status_code == status
     import sqlite3
@@ -180,19 +263,33 @@ def test_real_instructor_retries_with_context_and_native_schema(tmp_path):
 
         def handler(request):
             if request.url.path == "/api/tags":
-                return httpx.Response(200, json={"models": [
-                    {"name": "qwen3.5:4b", "digest": "test-digest"},
-                ]})
+                return httpx.Response(
+                    200,
+                    json={
+                        "models": [
+                            {"name": "qwen3.5:4b", "digest": "test-digest"},
+                        ]
+                    },
+                )
             payload = json.loads(request.content)
             requests.append(payload)
             answer = invalid if len(requests) == 1 else good()
-            return httpx.Response(200, json={
-                "message": {"content": json.dumps(answer, ensure_ascii=False)},
-                "done": True, "done_reason": "stop", "eval_count": 100,
-            })
+            return httpx.Response(
+                200,
+                json={
+                    "message": {"content": json.dumps(answer, ensure_ascii=False)},
+                    "done": True,
+                    "done_reason": "stop",
+                    "eval_count": 100,
+                },
+            )
 
-        model = OllamaExtractor(BackendSettings(database=tmp_path / "test.sqlite3"),
-                                transport=httpx.MockTransport(handler))
+        model = OllamaExtractor(
+            BackendSettings(
+                database=tmp_path / "test.sqlite3", auth_database=tmp_path / "staff.sqlite3"
+            ),
+            transport=httpx.MockTransport(handler),
+        )
         try:
             result = await model.extract(ExtractRequest(turns=turns()))
             assert result.document.咳嗽.value == "咳嗽"
@@ -218,11 +315,21 @@ def test_instructor_exhaustion_rejects_bad_output(tmp_path):
             count += 1
             invalid = good()
             invalid["发热"]["evidence"] = []
-            return httpx.Response(200, json={"message": {"content": json.dumps(invalid)},
-                                           "done": True, "done_reason": "stop"})
+            return httpx.Response(
+                200,
+                json={
+                    "message": {"content": json.dumps(invalid)},
+                    "done": True,
+                    "done_reason": "stop",
+                },
+            )
 
-        model = OllamaExtractor(BackendSettings(database=tmp_path / "test.sqlite3"),
-                                transport=httpx.MockTransport(handler))
+        model = OllamaExtractor(
+            BackendSettings(
+                database=tmp_path / "test.sqlite3", auth_database=tmp_path / "staff.sqlite3"
+            ),
+            transport=httpx.MockTransport(handler),
+        )
         try:
             with pytest.raises(InvalidGeneration):
                 await model.extract(ExtractRequest(turns=turns()))
@@ -245,7 +352,11 @@ def test_busy_request_is_rejected_and_deadline_releases_lock(tmp_path):
             raise AssertionError("deadline should cancel the transport")
 
         model = OllamaExtractor(
-            BackendSettings(database=tmp_path / "test.sqlite3", timeout_s=0.1),
+            BackendSettings(
+                database=tmp_path / "test.sqlite3",
+                auth_database=tmp_path / "staff.sqlite3",
+                timeout_s=0.1,
+            ),
             transport=httpx.MockTransport(handler),
         )
         try:
@@ -272,13 +383,21 @@ def test_transport_and_truncated_outputs_never_become_drafts(tmp_path, response_
                 return httpx.Response(500, text="upstream error")
             if response_type == "bad_json":
                 return httpx.Response(200, text="broken response")
-            return httpx.Response(200, json={
-                "message": {"content": json.dumps(good())}, "done": True,
-                "done_reason": "length",
-            })
+            return httpx.Response(
+                200,
+                json={
+                    "message": {"content": json.dumps(good())},
+                    "done": True,
+                    "done_reason": "length",
+                },
+            )
 
-        model = OllamaExtractor(BackendSettings(database=tmp_path / "test.sqlite3"),
-                                transport=httpx.MockTransport(handler))
+        model = OllamaExtractor(
+            BackendSettings(
+                database=tmp_path / "test.sqlite3", auth_database=tmp_path / "staff.sqlite3"
+            ),
+            transport=httpx.MockTransport(handler),
+        )
         try:
             expected = ModelUnavailable if response_type == "http_error" else InvalidGeneration
             with pytest.raises(expected):
@@ -287,3 +406,89 @@ def test_transport_and_truncated_outputs_never_become_drafts(tmp_path, response_
             await model.close()
 
     asyncio.run(scenario())
+
+
+def test_auth_spoofing_expiry_and_deletion(tmp_path):
+    import sqlite3
+
+    from smartmed.auth import AuthStore
+
+    settings = BackendSettings(database=tmp_path / "drafts.db", auth_database=tmp_path / "staff.db")
+    auth = AuthStore(settings.auth_database)
+    auth.add_staff("pavel", "test-passcode-123")
+    with TestClient(create_app(settings, FakeExtractor())) as client:
+        payload = {"turns": [t.model_dump() for t in turns()]}
+        assert client.post("/v1/drafts", json=payload).status_code == 401
+        bad = client.post("/v1/auth/login", json={"staff_id": "pavel", "passcode": "wrong"})
+        assert bad.status_code == 401
+        malformed = client.post("/v1/auth/login", json={"passcode": "secret-never-echo"})
+        assert "secret-never-echo" not in malformed.text
+        token = client.post(
+            "/v1/auth/login",
+            json={
+                "staff_id": "pavel",
+                "passcode": "test-passcode-123",
+            },
+        ).json()["access_token"]
+        client.headers["Authorization"] = "Bearer " + token
+        draft = client.post("/v1/drafts", json=payload).json()
+        url = f"/v1/drafts/{draft['id']}"
+        assert (
+            client.post(
+                url + "/confirm",
+                json={
+                    "expected_version": 1,
+                    "reviewer": "denis",
+                    "reviewed": True,
+                },
+            ).status_code
+            == 403
+        )
+        confirmed = client.post(
+            url + "/confirm",
+            json={
+                "expected_version": 1,
+                "reviewed": True,
+            },
+        )
+        assert confirmed.json()["reviewer"] == "pavel"
+        assert client.get(url + "/history").json()[-1]["actor"] == "pavel"
+        assert client.delete(url + "?expected_version=1").status_code == 409
+        assert client.delete(url + "?expected_version=2").status_code == 204
+        assert client.get(url).status_code == 404
+        with sqlite3.connect(settings.database) as db:
+            assert db.execute("SELECT count(*) FROM revisions").fetchone()[0] == 0
+        with auth.connect() as db:
+            assert token not in str(db.execute("SELECT * FROM sessions").fetchall())
+            db.execute("UPDATE sessions SET expires=0")
+        assert client.get(url).status_code == 401
+
+
+def test_cough_phrase_from_review_is_valid():
+    answer = blank()
+    answer["咳嗽"] = {
+        "status": "present",
+        "value": "一直干咳",
+        "evidence": [{"turn_id": 1, "quote": "这两天一直干咳，夜里更厉害"}],
+    }
+    source = [Turn(turn_id=1, speaker="patient", text="这两天一直干咳，夜里更厉害")]
+    assert validate_extraction(answer, source).咳嗽.value == "一直干咳"
+
+
+def test_contract_migration_dispatch_and_unknown_versions(monkeypatch):
+    from smartmed.migrations import MIGRATIONS, migrate
+
+    monkeypatch.setitem(
+        MIGRATIONS,
+        "extraction.old",
+        lambda p: {
+            **p,
+            "contract_version": "extraction.v1",
+        },
+    )
+    assert migrate({"contract_version": "extraction.old"}) == {
+        "contract_version": "extraction.v2",
+        "acknowledged_alerts": [],
+    }
+    with pytest.raises(ValueError, match="Unsupported"):
+        migrate({"contract_version": "extraction.future"})
