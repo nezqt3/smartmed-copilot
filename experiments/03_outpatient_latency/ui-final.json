@@ -1,0 +1,69 @@
+{
+  "model_seconds": 14.543,
+  "ui_seconds": 14.916,
+  "metadata": {
+    "model": "qwen3.5:4b",
+    "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+    "prompt_version": "outpatient.spans.zh.v5",
+    "generation_format": "spans",
+    "plan_audit": true,
+    "plan_prompt_sha256": "2e419a761d7f8cc7eb0c891393994bd9559cb9a50625727f23db64d3b9a6295e",
+    "prompt_sha256": "6d38b19ea57376c5c7afc1e1f5a1ac95c4ea1907312a5a54260da39367414628",
+    "think": false,
+    "context_tokens": 16384,
+    "output_tokens": 4096,
+    "temperature": 0,
+    "seed": 42,
+    "attempts": [
+      {
+        "stage": "extraction",
+        "done_reason": "stop",
+        "prompt_tokens": 3280,
+        "output_tokens": 236,
+        "total_duration_ns": 10743027959,
+        "load_duration_ns": 10965792,
+        "prompt_eval_duration_ns": 107671000,
+        "eval_duration_ns": 10463755000
+      },
+      {
+        "stage": "plan_check",
+        "done_reason": "stop",
+        "prompt_tokens": 1525,
+        "output_tokens": 81,
+        "total_duration_ns": 3769617125,
+        "load_duration_ns": 2609958,
+        "prompt_eval_duration_ns": 91487000,
+        "eval_duration_ns": 3553903000
+      }
+    ],
+    "exact_duplicate_normalizations": [],
+    "elapsed_s": 14.543
+  },
+  "checks": {
+    "chief_complaint:咳嗽": true,
+    "present_illness:37.8": true,
+    "present_illness:不确定是不是血": true,
+    "present_illness:先是喉咙痛": true,
+    "past_history:高血压": true,
+    "past_history:没有做过手术": true,
+    "medication_history:氨氯地平5毫克": true,
+    "medication_history:不记得一粒多少毫克": true,
+    "medication_history:名字忘了": true,
+    "medication_history:量也没看清": true,
+    "allergy_history:皮疹": true,
+    "physical_examination:146/88": true,
+    "physical_examination:97%": true,
+    "physical_examination:未闻及明显湿啰音": true,
+    "investigations:白细胞不高": true,
+    "assessment:肺炎还不能排除": true,
+    "plan:不要再自行服用阿莫西林": true,
+    "plan:胸部X线": true,
+    "plan:先不决定静脉输液": true,
+    "plan:呼吸困难": true,
+    "plan:最迟两天": true,
+    "allergy_conflict": true,
+    "no_relative_asthma": true,
+    "no_requested_azithromycin_as_taken": true
+  },
+  "state": "requires_review"
+}

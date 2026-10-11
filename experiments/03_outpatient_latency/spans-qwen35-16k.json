@@ -1,0 +1,326 @@
+{
+  "variant": "spans",
+  "model": "qwen3.5:4b",
+  "context": 16384,
+  "input": "examples/outpatient_realistic_synthetic_zh.json",
+  "turns": 32,
+  "input_characters": 1076,
+  "valid": true,
+  "document": {
+    "chief_complaint": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "咳嗽有五天了，这两天晚上特别厉害，睡不好。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "咳嗽有五天了，这两天晚上特别厉害，睡不好。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "present_illness": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "今天早上痰里面好像有一点血丝，我有点怕。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "今天早上痰里面好像有一点血丝，我有点怕。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "第一天量过37.8度，后面没量。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 4,
+              "quote": "第一天量过37.8度，后面没量。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "现在觉得不烧，就是鼻子有点堵。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 4,
+              "quote": "现在觉得不烧，就是鼻子有点堵。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "痰是黄白色的，不多。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "痰是黄白色的，不多。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "咳狠了胸口疼，平时不疼。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "咳狠了胸口疼，平时不疼。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "走快了有点喘，坐着没事。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "走快了有点喘，坐着没事。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "也可能是嗓子咳破了，我不确定是不是血，就一次，没拍照片。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 8,
+              "quote": "也可能是嗓子咳破了，我不确定是不是血，就一次，没拍照片。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "past_history": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "高血压有六七年了，没有做过手术，前年因为血压高住过一次院。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 11,
+              "quote": "高血压有六七年了，没有做过手术，前年因为血压高住过一次院。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "allergy_history": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "小时候打青霉素后出过皮疹，后来就没再打过。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 16,
+              "quote": "小时候打青霉素后出过皮疹，后来就没再打过。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "medication_history": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "每天早上吃氨氯地平5毫克。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 13,
+              "quote": "每天早上吃氨氯地平5毫克。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "这两天吃过家里剩的阿莫西林，每次一粒，一天两次，我不记得一粒多少毫克。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 13,
+              "quote": "这两天吃过家里剩的阿莫西林，每次一粒，一天两次，我不记得一粒多少毫克。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "昨晚喝了一次，量也没看清。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 14,
+              "quote": "昨晚喝了一次，量也没看清。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "physical_examination": {
+      "status": "unknown",
+      "items": [],
+      "reviewed": false
+    },
+    "investigations": {
+      "status": "unknown",
+      "items": [],
+      "reviewed": false
+    },
+    "assessment": {
+      "status": "unknown",
+      "items": [],
+      "reviewed": false
+    },
+    "plan": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "先不要再自行服用阿莫西林。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 19,
+              "quote": "先不要再自行服用阿莫西林。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "目前多饮水，注意休息，避免吸烟。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 29,
+              "quote": "目前多饮水，注意休息，避免吸烟。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    }
+  },
+  "metadata": {
+    "model": "qwen3.5:4b",
+    "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+    "prompt_version": "outpatient.spans.zh.v1",
+    "generation_format": "spans",
+    "prompt_sha256": "219a716942143fd2cde03c45eef7acd4666eea87f338d79e16d5d3e9360e2f86",
+    "think": false,
+    "context_tokens": 16384,
+    "output_tokens": 4096,
+    "temperature": 0,
+    "seed": 42,
+    "attempts": [
+      {
+        "done_reason": "stop",
+        "prompt_tokens": 2899,
+        "output_tokens": 124,
+        "total_duration_ns": 10403726792,
+        "load_duration_ns": 8944958,
+        "prompt_eval_duration_ns": 4747001000,
+        "eval_duration_ns": 5457963000
+      }
+    ],
+    "exact_duplicate_normalizations": [],
+    "elapsed_s": 10.468
+  },
+  "checks": {
+    "chief_complaint:咳嗽": true,
+    "present_illness:37.8": true,
+    "present_illness:不确定是不是血": true,
+    "past_history:高血压": true,
+    "past_history:没有做过手术": true,
+    "medication_history:氨氯地平5毫克": true,
+    "medication_history:不记得一粒多少毫克": true,
+    "medication_history:名字忘了": false,
+    "allergy_history:皮疹": true,
+    "physical_examination:146/88": false,
+    "physical_examination:97%": false,
+    "physical_examination:未闻及明显湿啰音": false,
+    "investigations:白细胞不高": false,
+    "assessment:肺炎还不能排除": false,
+    "plan:不要再自行服用阿莫西林": true,
+    "plan:胸部X线": false,
+    "plan:先不决定静脉输液": false,
+    "plan:呼吸困难": false,
+    "plan:最迟两天": false,
+    "allergy_conflict": false,
+    "no_relative_asthma": true,
+    "no_requested_azithromycin_as_taken": true
+  },
+  "wall_s": 10.513,
+  "raw": [
+    {
+      "model": "qwen3.5:4b",
+      "created_at": "2026-10-11T15:04:47.931786Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\"f\":[[0,2,\"p\"],[1,3,\"n\"],[1,7,\"u\"],[1,8,\"p\"],[1,11,\"p\"],[1,12,\"p\"],[1,13,\"p\"],[1,17,\"u\"],[2,25,\"p\"],[4,29,\"p\"],[4,30,\"p\"],[4,32,\"p\"],[3,36,\"u\"],[8,41,\"n\"],[8,64,\"p\"]],\"c\":[]}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 10403726792,
+      "load_duration": 8944958,
+      "prompt_eval_count": 2899,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 4747001000,
+      "eval_count": 124,
+      "eval_duration": 5457963000
+    }
+  ]
+}

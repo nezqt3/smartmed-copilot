@@ -1,0 +1,550 @@
+{
+  "variant": "spans",
+  "model": "qwen3.5:4b",
+  "context": 16384,
+  "input": "examples/outpatient_realistic_synthetic_zh.json",
+  "turns": 32,
+  "input_characters": 1076,
+  "valid": true,
+  "document": {
+    "chief_complaint": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "咳嗽有五天了，这两天晚上特别厉害，睡不好。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "咳嗽有五天了，这两天晚上特别厉害，睡不好。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "present_illness": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "今天早上痰里面好像有一点血丝，我有点怕。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 2,
+              "quote": "今天早上痰里面好像有一点血丝，我有点怕。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "先是喉咙痛，然后开始咳。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 4,
+              "quote": "先是喉咙痛，然后开始咳。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "第一天量过37.8度，后面没量。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 4,
+              "quote": "第一天量过37.8度，后面没量。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "现在觉得不烧，就是鼻子有点堵。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 4,
+              "quote": "现在觉得不烧，就是鼻子有点堵。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "痰是黄白色的，不多。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "痰是黄白色的，不多。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "咳狠了胸口疼，平时不疼。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "咳狠了胸口疼，平时不疼。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "走快了有点喘，坐着没事。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 6,
+              "quote": "走快了有点喘，坐着没事。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "也可能是嗓子咳破了，我不确定是不是血，就一次，没拍照片。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 8,
+              "quote": "也可能是嗓子咳破了，我不确定是不是血，就一次，没拍照片。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "以前没有这样过。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 8,
+              "quote": "以前没有这样过。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "他昨晚一直咳。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "third_party",
+          "evidence": [
+            {
+              "turn_id": 9,
+              "quote": "他昨晚一直咳。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "past_history": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "高血压有六七年了，没有做过手术，前年因为血压高住过一次院。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 11,
+              "quote": "高血压有六七年了，没有做过手术，前年因为血压高住过一次院。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "allergy_history": {
+      "status": "conflict",
+      "items": [
+        {
+          "text": "小时候打青霉素后出过皮疹，后来就没再打过。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 16,
+              "quote": "小时候打青霉素后出过皮疹，后来就没再打过。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "我记得他以前说没有药物过敏，可能自己也没记清。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "third_party",
+          "evidence": [
+            {
+              "turn_id": 17,
+              "quote": "我记得他以前说没有药物过敏，可能自己也没记清。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "对，之前填表写过没有。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 18,
+              "quote": "对，之前填表写过没有。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "皮疹那次是听我妈说的，我自己记不清。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 18,
+              "quote": "皮疹那次是听我妈说的，我自己记不清。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "medication_history": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "每天早上吃氨氯地平5毫克。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 13,
+              "quote": "每天早上吃氨氯地平5毫克。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "这两天吃过家里剩的阿莫西林，每次一粒，一天两次，我不记得一粒多少毫克。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 13,
+              "quote": "这两天吃过家里剩的阿莫西林，每次一粒，一天两次，我不记得一粒多少毫克。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "还有一种止咳糖浆，名字忘了。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 14,
+              "quote": "还有一种止咳糖浆，名字忘了。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "physical_examination": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "体温37.1摄氏度，血压146/88毫米汞柱，脉搏92次每分，血氧饱和度97%。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 24,
+              "quote": "体温37.1摄氏度，血压146/88毫米汞柱，脉搏92次每分，血氧饱和度97%。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "咽部充血，双肺呼吸音粗，未闻及明显湿啰音。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 24,
+              "quote": "咽部充血，双肺呼吸音粗，未闻及明显湿啰音。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "investigations": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "昨天在社区查了血常规，医生说白细胞不高，报告没带来。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 23,
+              "quote": "昨天在社区查了血常规，医生说白细胞不高，报告没带来。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "没做胸片，也没测抗原。",
+          "assertion": "negated",
+          "origin": "transcript",
+          "reported_by": "patient",
+          "evidence": [
+            {
+              "turn_id": 23,
+              "quote": "没做胸片，也没测抗原。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "assessment": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "目前考虑急性呼吸道感染，肺炎还不能排除。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 26,
+              "quote": "目前考虑急性呼吸道感染，肺炎还不能排除。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "是不是细菌感染也不能只凭黄痰判断，需要结合检查。",
+          "assertion": "uncertain",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 26,
+              "quote": "是不是细菌感染也不能只凭黄痰判断，需要结合检查。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    },
+    "plan": {
+      "status": "documented",
+      "items": [
+        {
+          "text": "先不要再自行服用阿莫西林。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 19,
+              "quote": "先不要再自行服用阿莫西林。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "建议做胸部X线检查，复查血常规；",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 27,
+              "quote": "建议做胸部X线检查，复查血常规；"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "目前多饮水，注意休息，避免吸烟。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 29,
+              "quote": "目前多饮水，注意休息，避免吸烟。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "具体药物和剂量等复诊时确认。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 29,
+              "quote": "具体药物和剂量等复诊时确认。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "建议尽快完成检查。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 31,
+              "quote": "建议尽快完成检查。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "若出现明显呼吸困难、持续高热、胸痛加重或再次咯血，请立即就医。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 31,
+              "quote": "若出现明显呼吸困难、持续高热、胸痛加重或再次咯血，请立即就医。"
+            }
+          ],
+          "reviewed": false
+        },
+        {
+          "text": "检查结果出来后复诊，最迟两天内回来评估。",
+          "assertion": "present",
+          "origin": "transcript",
+          "reported_by": "doctor",
+          "evidence": [
+            {
+              "turn_id": 31,
+              "quote": "检查结果出来后复诊，最迟两天内回来评估。"
+            }
+          ],
+          "reviewed": false
+        }
+      ],
+      "reviewed": false
+    }
+  },
+  "metadata": {
+    "model": "qwen3.5:4b",
+    "digest": "2a654d98e6fba55d452b7043684e9b57a947e393bbffa62485a7aac05ee4eefd",
+    "prompt_version": "outpatient.spans.zh.v3",
+    "generation_format": "spans",
+    "prompt_sha256": "34ab07e0025e452af5770788a495cde995c2c41d3187ba858033df4c8d7df829",
+    "think": false,
+    "context_tokens": 16384,
+    "output_tokens": 4096,
+    "temperature": 0,
+    "seed": 42,
+    "attempts": [
+      {
+        "done_reason": "stop",
+        "prompt_tokens": 3018,
+        "output_tokens": 229,
+        "total_duration_ns": 16055920291,
+        "load_duration_ns": 2359966166,
+        "prompt_eval_duration_ns": 4458460000,
+        "eval_duration_ns": 9222364000
+      }
+    ],
+    "exact_duplicate_normalizations": [],
+    "elapsed_s": 16.127
+  },
+  "checks": {
+    "chief_complaint:咳嗽": true,
+    "present_illness:37.8": true,
+    "present_illness:不确定是不是血": true,
+    "past_history:高血压": true,
+    "past_history:没有做过手术": true,
+    "medication_history:氨氯地平5毫克": true,
+    "medication_history:不记得一粒多少毫克": true,
+    "medication_history:名字忘了": true,
+    "allergy_history:皮疹": true,
+    "physical_examination:146/88": true,
+    "physical_examination:97%": true,
+    "physical_examination:未闻及明显湿啰音": true,
+    "investigations:白细胞不高": true,
+    "assessment:肺炎还不能排除": true,
+    "plan:不要再自行服用阿莫西林": true,
+    "plan:胸部X线": true,
+    "plan:先不决定静脉输液": false,
+    "plan:呼吸困难": true,
+    "plan:最迟两天": true,
+    "allergy_conflict": true,
+    "no_relative_asthma": true,
+    "no_requested_azithromycin_as_taken": true
+  },
+  "wall_s": 16.165,
+  "raw": [
+    {
+      "model": "qwen3.5:4b",
+      "created_at": "2026-10-11T15:08:38.269311Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\"s0\":[[2,\"p\"]],\"s1\":[[3,\"u\"],[6,\"n\"],[7,\"n\"],[8,\"n\"],[11,\"p\"],[12,\"p\"],[13,\"p\"],[17,\"u\"],[18,\"n\"],[19,\"p\"]],\"s2\":[[25,\"p\"]],\"s3\":[[36,\"u\"],[37,\"u\"],[38,\"p\"],[39,\"u\"]],\"s4\":[[29,\"p\"],[30,\"p\"],[31,\"p\"]],\"s5\":[[52,\"p\"],[53,\"p\"]],\"s6\":[[48,\"n\"],[50,\"n\"]],\"s7\":[[57,\"u\"],[58,\"u\"]],\"s8\":[[41,\"p\"],[59,\"p\"],[64,\"p\"],[65,\"p\"],[67,\"p\"],[68,\"p\"],[69,\"p\"]],\"c\":[3]}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 16055920291,
+      "load_duration": 2359966166,
+      "prompt_eval_count": 3018,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 4458460000,
+      "eval_count": 229,
+      "eval_duration": 9222364000
+    }
+  ]
+}

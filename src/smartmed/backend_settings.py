@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -15,6 +16,8 @@ class BackendSettings(BaseModel):
     auth_database: Path = Path("data/staff.sqlite3")
     frontend_origin: str = "http://127.0.0.1:5173"
     timeout_s: float = Field(default=90, gt=0, le=300)
+    outpatient_plan_audit: bool = True
+    outpatient_format: Literal["full", "spans"] = "spans"
     outpatient_timeout_s: float = Field(default=180, gt=0, le=600)
     repair_attempts: int = Field(default=1, ge=0, le=2)
     context_tokens: int = Field(default=16384, ge=4096, le=16384)

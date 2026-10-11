@@ -1,0 +1,30 @@
+{
+  "variant": "spans",
+  "model": "qwen3:4b-instruct",
+  "context": 16384,
+  "input": "examples/outpatient_realistic_synthetic_zh.json",
+  "turns": 32,
+  "input_characters": 1076,
+  "valid": false,
+  "error": "InvalidGeneration",
+  "wall_s": 20.712,
+  "raw": [
+    {
+      "model": "qwen3:4b-instruct",
+      "created_at": "2026-10-11T15:07:54.966114Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"c\": [],\n  \"s0\": [\n    [2, \"p\"],\n    [19, \"p\"]\n  ],\n  \"s1\": [\n    [6, \"p\"],\n    [7, \"p\"],\n    [13, \"p\"],\n    [14, \"p\"],\n    [21, \"p\"],\n    [45, \"p\"],\n    [54, \"u\"],\n    [55, \"u\"],\n    [56, \"u\"]\n  ],\n  \"s2\": [\n    [25, \"p\"]\n  ],\n  \"s3\": [\n    [36, \"u\"],\n    [37, \"u\"],\n    [38, \"u\"],\n    [39, \"u\"]\n  ],\n  \"s4\": [\n    [29, \"p\"],\n    [30, \"p\"],\n    [31, \"p\"]\n  ],\n  \"s5\": [\n    [52, \"p\"],\n    [53, \"p\"]\n  ],\n  \"s6\": [\n    [48, \"u\"],\n    [50, \"u\"]\n  ],\n  \"s7\": [\n    [57, \"u\"],\n    [58, \"u\"]\n  ],\n  \"s8\": [\n    [63, \"u\"],\n    [64, \"p\"],\n    [65, \"u\"],\n    [66, \"p\"],\n    [67, \"u\"],\n    [68, \"u\"],\n    [69, \"u\"]\n  ]\n}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 20592166125,
+      "load_duration": 1916550792,
+      "prompt_eval_count": 3059,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 5376747000,
+      "eval_count": 333,
+      "eval_duration": 13281946000
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "variant": "spans",
+  "model": "qwen2.5:3b",
+  "context": 16384,
+  "input": "examples/outpatient_realistic_synthetic_zh.json",
+  "turns": 32,
+  "input_characters": 1076,
+  "valid": false,
+  "error": "InvalidGeneration",
+  "wall_s": 18.357,
+  "raw": [
+    {
+      "model": "qwen2.5:3b",
+      "created_at": "2026-10-11T15:05:35.014797Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\n    \"f\": [\n        [\n            0,\n            2,\n            \"p\"\n        ],\n        [\n            1,\n            3,\n            \"n\"\n        ],\n        [\n            2,\n            0,\n            \"p\"\n        ],\n        [\n            2,\n            1,\n            \"p\"\n        ],\n        [\n            2,\n            2,\n            \"p\"\n        ],\n        [\n            3,\n            0,\n            \"p\"\n        ],\n        [\n            3,\n            1,\n            \"p\"\n        ],\n        [\n            4,\n            0,\n            \"p\"\n        ],\n        [\n            4,\n            1,\n            \"p\"\n        ],\n        [\n            5,\n            0,\n            \"p\"\n        ],\n        [\n            5,\n            1,\n            \"p\"\n        ],\n        [\n            6,\n            0,\n            \"p\"\n        ],\n        [\n            6,\n            1,\n            \"p\"\n        ],\n        [\n            7,\n            0,\n            \"p\"\n        ],\n        [\n            7,\n            1,\n            \"p\"\n        ],\n        [\n            8,\n            0,\n            \"p\"\n        ],\n        [\n            8,\n            1,\n            \"p\"\n        ],\n        [\n            8,\n            2,\n            \"p\"\n        ],\n        [\n            8,\n            3,\n            \"n\"\n        ],\n        [\n            8,\n            4,\n            \"n\"\n        ],\n        [\n            8,\n            5,\n            \"u\"\n        ],\n        [\n            8,\n            6,\n            \"u\"\n        ],\n        [\n            8,\n            7,\n            \"u\"\n        ],\n        [\n            8,\n            8,\n            \"u\"\n        ]\n    ],\n    \"c\": [\n        2\n    ]\n}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 18276064792,
+      "load_duration": 1666883750,
+      "prompt_eval_count": 2974,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 3885074000,
+      "eval_count": 405,
+      "eval_duration": 12710399000
+    }
+  ]
+}

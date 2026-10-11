@@ -1,0 +1,30 @@
+{
+  "variant": "spans",
+  "model": "qwen3.5:4b",
+  "context": 16384,
+  "input": "examples/outpatient_realistic_synthetic_zh.json",
+  "turns": 32,
+  "input_characters": 1076,
+  "valid": false,
+  "error": "InvalidGeneration",
+  "wall_s": 18.52,
+  "raw": [
+    {
+      "model": "qwen3.5:4b",
+      "created_at": "2026-10-11T15:06:46.581921Z",
+      "message": {
+        "role": "assistant",
+        "content": "{\"s0\":[[2,\"p\"]],\"s1\":[[3,\"p\"],[4,\"p\"],[6,\"p\"],[7,\"p\"],[8,\"p\"],[11,\"p\"],[12,\"p\"],[13,\"p\"],[17,\"u\"],[18,\"p\"],[19,\"p\"]],\"s2\":[[25,\"p\"]],\"s3\":[[36,\"u\"],[37,\"u\"],[38,\"p\"]],\"s4\":[[29,\"p\"],[30,\"p\"],[31,\"p\"]],\"s5\":[[52,\"p\"],[53,\"p\"]],\"s6\":[[48,\"p\"]],\"s7\":[[57,\"u\"],[58,\"u\"]],\"s8\":[[41,\"n\"],[59,\"p\"],[60,\"p\"],[61,\"n\"],[63,\"p\"],[64,\"p\"],[65,\"p\"],[67,\"p\"],[68,\"p\"],[69,\"p\"]],\"c\":[3]}"
+      },
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 18419249542,
+      "load_duration": 2630659500,
+      "prompt_eval_count": 2980,
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_duration": 4813484000,
+      "eval_count": 240,
+      "eval_duration": 10952598000
+    }
+  ]
+}

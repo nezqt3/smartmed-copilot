@@ -99,7 +99,7 @@ class OutpatientDocument(StrictModel):
                 if (
                     name == "assessment"
                     and re.search(
-                        r"可能|考虑|怀疑|疑似|尚未确诊|待排",
+                        r"可能|考虑|怀疑|疑似|尚未确诊|待排|不能排除|不排除",
                         item.text,
                     )
                     and item.assertion != "uncertain"

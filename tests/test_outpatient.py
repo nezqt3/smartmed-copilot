@@ -251,7 +251,9 @@ def test_native_instructor_schema_and_no_patient_metadata():
         )
 
     async def run():
-        extractor = OutpatientExtractor(BackendSettings(), transport=httpx.MockTransport(transport))
+        extractor = OutpatientExtractor(
+            BackendSettings(outpatient_format="full"), transport=httpx.MockTransport(transport)
+        )
         try:
             req = OutpatientRequest(**{**request(), "patient": {"name": "Secret patient name"}})
             result = await extractor.extract(req)
