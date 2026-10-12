@@ -166,7 +166,7 @@ class OutpatientExtractor(OllamaExtractor):
                 raise InvalidGeneration
             try:
                 parsed, corrections = (
-                    (json.loads(content), [])
+                    compact.remove_repeated_selections(json.loads(content))
                     if use_spans
                     else remove_exact_misplaced_duplicates(json.loads(content))
                 )
@@ -265,6 +265,8 @@ class OutpatientExtractor(OllamaExtractor):
                     document.plan, compact.expand(plan.model_dump(), request).plan
                 ).model_dump()
                 document = validate_document(payload, request.turns, generated=True)
+            if use_spans:
+                document = compact.ensure_coverage(document, request)
         except httpx.TimeoutException as exc:
             raise GenerationTimeout from exc
         except httpx.HTTPError as exc:

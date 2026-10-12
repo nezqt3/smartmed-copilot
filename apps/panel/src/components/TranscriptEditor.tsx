@@ -1,16 +1,27 @@
+import { useState } from 'react'
 import type { Turn } from '../types'
 import { useI18n } from '../i18n'
 
 interface Props {
   turns: Turn[]
   disabled: boolean
-  onChange: (turns: Turn[]) => void
+  onChange: (turns: Turn[], splitIndex?: number) => void
 }
 
 export function TranscriptEditor({ turns, disabled, onChange }: Props) {
   const {t} = useI18n()
+  const [cursor,setCursor] = useState<{id:number;position:number}|null>(null)
   function update(index: number, patch: Partial<Turn>) {
     onChange(turns.map((turn, i) => i === index ? { ...turn, ...patch } : turn))
+  }
+  function split(index: number) {
+    const turn=turns[index]
+    const position=cursor?.id===turn.turn_id?cursor.position:0
+    if(position<=0||position>=turn.text.length)return
+    const right:Turn={...turn,text:turn.text.slice(position),speaker:turn.speaker==='doctor'?'patient':'doctor'}
+    const next=[...turns.slice(0,index),{...turn,text:turn.text.slice(0,position)},right,...turns.slice(index+1)]
+    onChange(next.map((item,i)=>({...item,turn_id:i+1})),index)
+    setCursor(null)
   }
 
   return <div className="turn-list">
@@ -29,7 +40,12 @@ export function TranscriptEditor({ turns, disabled, onChange }: Props) {
         </div>
         <textarea aria-label={`${t('第')} ${index + 1} ${t('句内容')}`} rows={2} value={turn.text} disabled={disabled}
           maxLength={8000} placeholder={t('输入对话内容')}
-          onChange={event => update(index, { text: event.target.value })} />
+          onClick={event=>setCursor({id:turn.turn_id,position:event.currentTarget.selectionStart})}
+          onKeyUp={event=>setCursor({id:turn.turn_id,position:event.currentTarget.selectionStart})}
+          onSelect={event=>setCursor({id:turn.turn_id,position:event.currentTarget.selectionStart})}
+          onChange={event => {setCursor({id:turn.turn_id,position:event.target.selectionStart});update(index, { text: event.target.value })}} />
+        <span title={t('光标须位于文字中间')}><button type="button" disabled={disabled||turns.length>=160||cursor?.id!==turn.turn_id||cursor.position<=0||cursor.position>=turn.text.length} onClick={()=>split(index)}>{t('在光标处分段')}</button></span>
+        {(cursor?.id!==turn.turn_id||cursor.position<=0||cursor.position>=turn.text.length)&&<small>{t('光标须位于文字中间')}</small>}
       </div>
     </div>)}
     <button type="button" className="add-turn" disabled={disabled || turns.length >= 160}

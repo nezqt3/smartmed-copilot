@@ -59,6 +59,11 @@ class Confirm(StrictModel):
 
 def printable(draft: OutpatientDraft) -> str:
     esc = lambda value: html.escape(str("未记录" if value is None or value == "" else value))  # noqa: E731
+    def shown(value):
+        text = str(value).replace("T", " ") if value else None
+        return text[:16] if text else None
+
+    visited_at = shown(draft.encounter.visited_at)
     labels = {
         "present": "明确陈述",
         "negated": "明确否认",
@@ -92,7 +97,7 @@ section{{break-inside:avoid}}small{{color:#555}}@media print{{button{{display:no
 <h1>门诊病历（SmartMed 演示）</h1>
 <p>姓名：{esc(draft.patient.name)}　患者编号：{esc(draft.patient.patient_id)}　
 性别：{esc(labels[draft.patient.sex])}　年龄：{esc(draft.patient.age)}</p>
-<p>科室：{esc(draft.encounter.department)}　就诊时间：{esc(draft.encounter.visited_at)}　
+<p>科室：{esc(draft.encounter.department)}　就诊时间：{esc(visited_at)}　
 类型：{esc(labels[draft.encounter.visit_type])}</p>
 {"".join(sections)}
 <p>审核医师：{esc(draft.reviewer)}　审核时间：{esc(draft.reviewed_at)}</p>

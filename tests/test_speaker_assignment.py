@@ -49,6 +49,34 @@ def test_adjacent_same_speaker_segments_are_merged():
     assert uncertain == [1]
 
 
+def test_confident_glued_doctor_and_patient_turn_is_forced_to_review():
+    glued = "我会先记录您说的情况药何如果还在请再来核对好的"
+    turns, uncertain = turns_from_segments(
+        glued,
+        [{"speaker": "doctor", "text": glued, "uncertain": False}],
+    )
+    assert uncertain == [1]
+
+
+def test_confident_question_and_answer_in_one_turn_is_forced_to_review():
+    glued = "昨天和晚上有什么区别有一点痰白天不太明咳起下以后咳的更多"
+    _, uncertain = turns_from_segments(
+        glued, [{"speaker": "patient", "text": glued, "uncertain": False}]
+    )
+    assert uncertain == [1]
+
+
+def test_clean_single_speaker_turns_are_not_flagged_as_glue():
+    for speaker, text in [
+        ("patient", "我从三天前开始咳嗽起初只是偶尔咳现在晚上也会咳"),
+        ("patient", "我咳嗽不知道怎么办"),
+        ("doctor", "建议多饮水注意休息三天后复诊"),
+    ]:
+        proposal = [{"speaker": speaker, "text": text, "uncertain": False}]
+        _, uncertain = turns_from_segments(text, proposal)
+        assert uncertain == [], text
+
+
 def test_local_model_assignment_uses_segments_without_rewriting_text():
     text = "今天哪里不舒服我咳嗽两天了"
 

@@ -80,7 +80,8 @@ textarea { resize: vertical; }
 .clinical-item textarea { display: block; width: 100%; min-height: 70px; }
 .clinical-item small { display: block; margin: 8px 0; }
 .clinical-item blockquote { margin: 8px 0; padding: 8px; border-left: 3px solid #1599a1; }
-.outpatient-section label { display: block; margin-top: 12px; }
+.outpatient-section label { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 8px; cursor: pointer; border-radius: 6px; }
+.outpatient-section label:focus-within, .outpatient-app .panel > label:focus-within { outline: 2px solid #70c8c9; outline-offset: 2px; }
 .microphone-recorder { margin: 14px 0; padding: 12px; border: 1px solid #d9eae4; border-radius: 8px; background: #f5faf7; font-size: 12px; }
 .microphone-recorder small { display: block; margin-top: 9px; color: #628b7c; line-height: 1.5; }
 .recording-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 9px; }
@@ -119,7 +120,10 @@ textarea { resize: vertical; }
 .outpatient-app .panel button:not(.primary-button):not(.text-button):hover:not(:disabled) { background: #eaf5ef; }
 .outpatient-app .panel .primary-button { border-radius: 6px; }
 .outpatient-app .panel > button, .outpatient-app .panel > label { margin: 5px 9px 5px 0; }
-.outpatient-app .panel input[type=checkbox] { margin-right: 7px; vertical-align: middle; }
+.outpatient-app .panel > label:has(input[type=checkbox]) { display: inline-flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 6px; }
+.outpatient-app .panel input[type=checkbox] { width: 20px; height: 20px; min-width: 20px; margin: 0 9px 0 0; vertical-align: middle; cursor: pointer; accent-color: #1599a1; flex: none; }
+.outpatient-app .panel input[type=checkbox]:focus-visible { outline: 3px solid #70c8c9; outline-offset: 2px; }
+.encounter-details, .outpatient-app .outpatient-section, .outpatient-app .panel input[type=checkbox] { scroll-margin-top: 92px; }
 .outpatient-app .asr-result { margin-bottom: 15px; }
 .outpatient-app .asr-result textarea { display: block; width: 100%; margin-top: 8px; }
 .outpatient-app .outpatient-section h3 { font-size: 14px; margin: 0 0 10px; }

@@ -78,6 +78,11 @@ const translations: Record<string, { ru: string; en: string }> = {
   '模型正忙，请稍后重试自动区分。': {ru:'Модель занята. Повторите авторазделение чуть позже.',en:'The model is busy. Retry speaker assignment shortly.'},
   '自动区分角色失败，请重试。识别文字已保留。': {ru:'Не удалось распределить роли. Повторите попытку; распознанный текст сохранён.',en:'Speaker assignment failed. Retry; the transcript is preserved.'},
   '自动分角色最多支持1200字；识别文字已保留。': {ru:'Для авторазделения нужно до 1200 символов. Распознанный текст сохранён.',en:'Automatic speaker assignment supports up to 1200 characters. The transcript is preserved.'},
+  '有未保存的修改：请先点击“保存修改”，之后只需重新核对被改动的章节。': {ru:'Есть несохранённые правки. Сначала нажмите «Сохранить правки»; отметки проверяются заново только для изменённых разделов.',en:'You have unsaved edits. Press "Save changes" first; only the changed sections need re-review.'},
+  '浏览器禁止访问剪贴板，请允许访问或改用“下载 JSON（集成用）”。': {ru:'Браузер запретил доступ к буферу обмена. Разрешите доступ или используйте «Скачать JSON (для интеграции)».',en:'The browser blocked clipboard access. Allow it or use "Download JSON (integration)".'},
+  '如需重新录音或上传，请先点击“新建记录”。': {ru:'Чтобы записать или загрузить заново, сначала нажмите «Новая запись».',en:'To record or upload again, first press "New record".'},
+  '在光标处分段': {ru:'Разделить в месте курсора',en:'Split at cursor'},
+  '光标须位于文字中间': {ru:'Поставьте курсор внутри текста реплики.',en:'Place the cursor inside the turn text.'},
 }
 
 export function translate(key: string, locale: Locale): string {
