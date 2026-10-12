@@ -6,7 +6,6 @@ __pycache__
 .ruff_cache
 archive
 docs
-examples
 experiments
 tests
 tools

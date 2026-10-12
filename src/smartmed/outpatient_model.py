@@ -99,6 +99,11 @@ class OutpatientExtractor(OllamaExtractor):
         super().__init__(settings, transport)
         self.http.timeout = httpx.Timeout(settings.outpatient_timeout_s)
 
+    async def assign_speakers(self, text: str):
+        from smartmed.speaker_assignment import assign_speakers
+
+        return await assign_speakers(self, text)
+
     async def extract(self, request: OutpatientRequest):
         import asyncio
 

@@ -113,7 +113,8 @@ services:
 
   frontend:
     build:
-      context: ./apps/panel
+      context: .
+      dockerfile: apps/panel/Dockerfile
     ports:
       - "127.0.0.1:${SMARTMED_FRONTEND_PORT:-8080}:80"
     depends_on:

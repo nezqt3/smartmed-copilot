@@ -81,6 +81,56 @@ textarea { resize: vertical; }
 .clinical-item small { display: block; margin: 8px 0; }
 .clinical-item blockquote { margin: 8px 0; padding: 8px; border-left: 3px solid #1599a1; }
 .outpatient-section label { display: block; margin-top: 12px; }
+.microphone-recorder { margin: 14px 0; padding: 12px; border: 1px solid #d9eae4; border-radius: 8px; background: #f5faf7; font-size: 12px; }
+.microphone-recorder small { display: block; margin-top: 9px; color: #628b7c; line-height: 1.5; }
+.recording-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 9px; }
+.recording-indicator { color: #b94f4f; font-weight: 650; }
+.recording-error { color: #a33e3e; margin: 9px 0 0; }
+.asr-result textarea { min-height: 80px; }
+.outpatient-app .page { padding-bottom: 48px; }
+.outpatient-app .brand { display: block; letter-spacing: .04em; }
+.outpatient-app .brand strong { white-space: nowrap; }
+.outpatient-app .brand small { letter-spacing: .08em; }
+.encounter-details { margin-bottom: 22px; }
+.encounter-details summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; }
+.encounter-details summary::-webkit-details-marker { display: none; }
+.encounter-details summary strong { display: block; color: #25463b; font-size: 16px; }
+.encounter-details summary small { display: block; margin-top: 7px; color: #617d73; font-size: 12px; }
+.encounter-details .edit-hint { color: #467e70; font-size: 12px; white-space: nowrap; }
+.encounter-details[open] summary { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #e1ebe5; }
+.outpatient-app .encounter-details > p { color: #617d73; font-size: 12px; line-height: 1.6; }
+.encounter-details .fact-grid { margin-top: 16px; }
+.visit-time-control { display: flex; gap: 7px; }
+.visit-time-control input { flex: 1; }
+.outpatient-app .encounter-details .auto-note { margin: 15px 0 0; }
+.outpatient-app .review-patient-button { margin-top: 10px; }
+.outpatient-app .upload-control { margin: -5px 0 14px; }
+.outpatient-app .upload-control input[type=file] { display: none; }
+.outpatient-app .demo-examples { margin: 16px 0; font-size: 12px; color: #58776e; }
+.outpatient-app .demo-examples summary { cursor: pointer; width: fit-content; }
+.outpatient-app .demo-examples button { margin: 10px 8px 0 0; }
+.outpatient-app .panel h2 { font-size: 19px; margin: 0 0 10px; }
+.outpatient-app .panel > p { color: #617d73; font-size: 12px; line-height: 1.65; margin: 0 0 18px; }
+.outpatient-app .panel label { color: #5e7c70; font-size: 12px; line-height: 1.5; }
+.outpatient-app .fact-grid label { display: flex; flex-direction: column; gap: 6px; }
+.outpatient-app input:not([type=checkbox]):not([type=file]), .outpatient-app select, .outpatient-app textarea { min-width: 0; max-width: 100%; border: 1px solid #d8e6de; border-radius: 6px; background: #fff; padding: 9px 10px; font-size: 12px; line-height: 1.5; }
+.outpatient-app .fact-grid input, .outpatient-app .fact-grid select { width: 100%; }
+.outpatient-app .panel button:not(.primary-button):not(.text-button) { border: 1px solid #cfe1da; border-radius: 6px; background: #f7fbf9; color: #467e70; padding: 9px 12px; font-size: 12px; font-weight: 600; }
+.outpatient-app .panel button:not(.primary-button):not(.text-button):hover:not(:disabled) { background: #eaf5ef; }
+.outpatient-app .panel .primary-button { border-radius: 6px; }
+.outpatient-app .panel > button, .outpatient-app .panel > label { margin: 5px 9px 5px 0; }
+.outpatient-app .panel input[type=checkbox] { margin-right: 7px; vertical-align: middle; }
+.outpatient-app .asr-result { margin-bottom: 15px; }
+.outpatient-app .asr-result textarea { display: block; width: 100%; margin-top: 8px; }
+.outpatient-app .outpatient-section h3 { font-size: 14px; margin: 0 0 10px; }
+.outpatient-app .outpatient-section strong { color: #a65c42; font-size: 11px; margin-left: 8px; }
+.outpatient-app .clinical-item textarea { width: 100%; }
+.outpatient-app .clinical-item blockquote { background: white; color: #526c61; font-size: 11px; line-height: 1.5; }
+.outpatient-app .action-buttons { margin: 18px 0; }
+.outpatient-app .site-header { min-height: 72px; }
 .panel { padding: 24px; }
 input[type=checkbox] { width: auto; }
-@media(max-width: 800px) { .workspace { grid-template-columns: 1fr !important; } }
+@media(max-width: 1050px) { .workspace { grid-template-columns: 1fr !important; } }
+@media(max-width: 640px) { .outpatient-app .header-right { gap: 8px; } .encounter-details summary { align-items: flex-start; } .encounter-details summary small { line-height: 1.5; } }
+.language-switcher { min-width: 98px; padding: 7px 9px; border: 1px solid #bdd0c7; border-radius: 8px; background: #fff; color: #24463a; font: inherit; cursor: pointer; }
+@media (max-width: 640px) { .header-right { gap: 8px; } .language-switcher { min-width: 82px; max-width: 100px; padding: 6px; font-size: 11px; } }

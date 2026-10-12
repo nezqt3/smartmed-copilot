@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n";
 import {
   FIELD_LABELS,
   FIELD_NAMES,
@@ -22,6 +23,7 @@ const STATUS_LABELS: Record<Status, string> = {
 };
 
 export function FactReview({ draft, document, onChange }: Props) {
+  const {t} = useI18n();
   const patientTurns = draft.turns.filter((turn) => turn.speaker === "patient");
 
   function setFact(name: FieldName, fact: Fact) {
@@ -66,10 +68,10 @@ export function FactReview({ draft, document, onChange }: Props) {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>
-                <h3>{FIELD_LABELS[name]}</h3>
+                <h3>{t(FIELD_LABELS[name])}</h3>
               </div>
               <select
-                aria-label={`状态：${FIELD_LABELS[name]}`}
+                aria-label={`${t('状态')}：${t(FIELD_LABELS[name])}`}
                 value={fact.status}
                 onChange={(event) =>
                   setStatus(name, event.target.value as Status)
@@ -77,24 +79,24 @@ export function FactReview({ draft, document, onChange }: Props) {
               >
                 {Object.entries(STATUS_LABELS).map(([value, label]) => (
                   <option key={value} value={value}>
-                    {label}
+                    {t(label)}
                   </option>
                 ))}
               </select>
             </div>
             {fact.status === "unknown" ? (
               <p className="unknown-copy">
-                对话中没有可确认的信息。
+                {t('对话中没有可确认的信息。')}
               </p>
             ) : (
               <>
                 {fact.status === "present" && (
                   <label className="field-label">
-                    原话中的值
+                    {t('原话中的值')}
                     <input
                       value={fact.value}
                       maxLength={2000}
-                      placeholder="填写患者原话中的连续片段"
+                      placeholder={t('填写患者原话中的连续片段')}
                       onChange={(event) =>
                         setFact(name, { ...fact, value: event.target.value })
                       }
@@ -102,12 +104,12 @@ export function FactReview({ draft, document, onChange }: Props) {
                   </label>
                 )}
                 <div className="evidence-title">
-                  患者引文 <span>须与原话一致</span>
+                  {t('患者引文')} <span>{t('须与原话一致')}</span>
                 </div>
                 {fact.evidence.map((item, evidenceIndex) => (
                   <div className="evidence-row" key={evidenceIndex}>
                     <select
-                      aria-label={`对应的患者发言：${FIELD_LABELS[name]}`}
+                      aria-label={`${t('对应的患者发言')}：${t(FIELD_LABELS[name])}`}
                       value={item.turn_id}
                       onChange={(event) =>
                         setEvidence(
@@ -126,15 +128,15 @@ export function FactReview({ draft, document, onChange }: Props) {
                     >
                       {patientTurns.map((turn) => (
                         <option key={turn.turn_id} value={turn.turn_id}>
-                          患者 · {turn.turn_id}
+                          {t('患者')} · {turn.turn_id}
                         </option>
                       ))}
                     </select>
                     <input
-                      aria-label={`引文：${FIELD_LABELS[name]}`}
+                      aria-label={`${t('引文')}：${t(FIELD_LABELS[name])}`}
                       value={item.quote}
                       maxLength={2000}
-                      placeholder="选中发言中的原文"
+                      placeholder={t('选中发言中的原文')}
                       onChange={(event) =>
                         setEvidence(
                           name,
@@ -149,7 +151,7 @@ export function FactReview({ draft, document, onChange }: Props) {
                     <button
                       type="button"
                       className="icon-button"
-                      aria-label={`删除引文：${FIELD_LABELS[name]}`}
+                      aria-label={`${t('删除引文')}：${t(FIELD_LABELS[name])}`}
                       disabled={fact.evidence.length === 1}
                       onClick={() =>
                         setEvidence(
@@ -173,7 +175,7 @@ export function FactReview({ draft, document, onChange }: Props) {
                     ])
                   }
                 >
-                  + 添加引文
+                  + {t('添加引文')}
                 </button>
               </>
             )}

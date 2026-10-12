@@ -13,7 +13,13 @@ from smartmed.auth import AuthStore, LoginThrottled
 from smartmed.backend_settings import BackendSettings, load_backend_settings
 from smartmed.jobs import JobNotFound, Jobs, QueueFull
 from smartmed.medications import INDEX_VERSION, search
-from smartmed.model_client import OllamaExtractor
+from smartmed.model_client import (
+    GenerationTimeout,
+    InvalidGeneration,
+    ModelBusy,
+    ModelUnavailable,
+    OllamaExtractor,
+)
 from smartmed.outpatient_api import register_outpatient
 from smartmed.outpatient_model import OutpatientExtractor
 from smartmed.runtime import worker_lease
@@ -53,6 +59,10 @@ class ConfirmRequest(StrictModel):
 class LoginRequest(StrictModel):
     staff_id: str = Field(min_length=1, max_length=100)
     passcode: str = Field(min_length=1, max_length=1024)
+
+
+class SpeakerAssignmentRequest(StrictModel):
+    text: str = Field(min_length=1, max_length=8000)
 
 
 def create_app(
@@ -249,6 +259,23 @@ def create_app(
             raise HTTPException(504, detail={"code": "asr_timeout"}) from exc
         except ASRUnavailable as exc:
             raise HTTPException(503, detail={"code": "asr_unavailable"}) from exc
+
+    @app.post("/v1/audio/assign-speakers")
+    async def assign_audio_speakers(
+        request: SpeakerAssignmentRequest, actor: str = Depends(current_staff)
+    ):
+        try:
+            return await app.state.outpatient_extractor.assign_speakers(request.text)
+        except ValueError as exc:
+            raise HTTPException(422, detail={"code": "invalid_transcript"}) from exc
+        except ModelUnavailable as exc:
+            raise HTTPException(503, detail={"code": "model_unavailable"}) from exc
+        except ModelBusy as exc:
+            raise HTTPException(503, detail={"code": "model_busy"}) from exc
+        except GenerationTimeout as exc:
+            raise HTTPException(504, detail={"code": "model_timeout"}) from exc
+        except InvalidGeneration as exc:
+            raise HTTPException(502, detail={"code": "invalid_speaker_assignment"}) from exc
 
     def submit_job(request, actor):
 

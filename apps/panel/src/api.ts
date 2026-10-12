@@ -1,3 +1,4 @@
+import { currentLocale, translate } from './i18n'
 import type { Draft, Extraction, Turn } from './types'
 
 export class ApiError extends Error {
@@ -14,7 +15,7 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
     if (token) headers.set('Authorization', `Bearer ${token}`)
     response = await fetch(path, { ...init, headers })
   } catch {
-    throw new ApiError('无法连接本地服务，请确认 API 已启动。', 0)
+    throw new ApiError(translate('无法连接本地服务，请确认 API 已启动。', currentLocale()), 0)
   }
 
   if (!response.ok) {
@@ -23,19 +24,28 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
     const message = typeof detail === 'string' ? detail : detail?.message
     const code = detail?.code
     if (code === 'resolve_conflicts_before_review') {
-      throw new ApiError('请先核对并解决冲突，再保存和审核病历。', response.status)
+      throw new ApiError(translate('请先核对并解决冲突，再保存和审核病历。', currentLocale()), response.status)
+    }
+    if (code === 'model_busy') {
+      throw new ApiError(translate('模型正忙，请稍后重试自动区分。', currentLocale()), response.status)
+    }
+    if (code === 'invalid_speaker_assignment' || code === 'model_timeout') {
+      throw new ApiError(translate('自动区分角色失败，请重试。识别文字已保留。', currentLocale()), response.status)
+    }
+    if (code === 'invalid_transcript') {
+      throw new ApiError(translate('自动分角色最多支持1200字；识别文字已保留。', currentLocale()), response.status)
     }
     if (code === 'review_required' || code === 'section_review_required') {
-      throw new ApiError('请先审核并确认已保存的病历。', response.status)
+      throw new ApiError(translate('请先审核并确认已保存的病历。', currentLocale()), response.status)
     }
     if (response.status === 409) {
-      throw new ApiError('草稿已在其他页面更新，请刷新后重试。', 409)
+      throw new ApiError(translate('草稿已在其他页面更新，请刷新后重试。', currentLocale()), 409)
     }
     if (response.status === 422 && code === 'invalid_evidence') {
       const errors = detail.errors?.map((item: { msg: string }) => item.msg).join('; ')
-      throw new ApiError(errors || '请检查引文，必须与患者原话完全一致。', 422)
+      throw new ApiError(errors || translate('请检查引文，必须与患者原话完全一致。', currentLocale()), 422)
     }
-    throw new ApiError(message || `服务请求失败（${response.status}${code ? `：${code}` : ''}）。`, response.status)
+    throw new ApiError(message || `${translate('服务请求失败', currentLocale())} (${response.status}${code ? `: ${code}` : ''})`, response.status)
   }
   if (response.status === 204) return undefined as T
   return response.json() as Promise<T>
@@ -62,4 +72,10 @@ export const api = {
   transcribe: (file: File) => request<{ text: string; speaker_labels?: string }>('/v1/audio/transcribe', {
     method: 'POST', headers: { 'Content-Type': 'audio/wav' }, body: file,
   }),
+  assignSpeakers: (text: string) => request<{
+    text: string
+    turns: Turn[]
+    uncertain_turn_ids: number[]
+    speaker_labels: 'inferred_from_text'
+  }>('/v1/audio/assign-speakers', json({ text })),
 }
