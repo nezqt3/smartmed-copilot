@@ -4,6 +4,7 @@ export type Locale = 'ru' | 'en' | 'zh'
 const STORAGE_KEY = 'smartmed_locale'
 
 const translations: Record<string, { ru: string; en: string }> = {
+  '部分角色无法确定，原文已保留，请手动检查并拆分标记的文字。': {ru:'Часть ролей определить не удалось. Исходный текст сохранён; проверьте и разделите отмеченные блоки вручную.',en:'Some speakers could not be determined. Original text is preserved; review and split the marked blocks manually.'},
   '旧版六字段 / 历史记录': {ru:'Старая версия: 6 полей',en:'Legacy: six fields'},
   '门诊病历（新版本）': {ru:'Новая амбулаторная карта',en:'New outpatient record'},
   '智医病历': {ru:'SmartMed · Медкарта',en:'SmartMed · Records'},

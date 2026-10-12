@@ -3,6 +3,10 @@ name: smartmed
 services:
   ollama:
     image: ollama/ollama:latest
+    cpus: "2.0"
+    environment:
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
     volumes:
       - ollama-data:/root/.ollama
     healthcheck:
@@ -37,10 +41,14 @@ services:
     restart: "no"
 
   asr:
+    cpus: "1.0"
     build:
       context: .
       dockerfile: infra/docker/asr.Dockerfile
     environment:
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
       SMARTMED_ASR_MODEL_DIR: /models/paraformer-zh
       HF_HUB_OFFLINE: "1"
       HF_HOME: /models/.cache

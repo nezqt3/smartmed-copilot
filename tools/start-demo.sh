@@ -3,6 +3,10 @@ set -eu
 
 cd "$(dirname "$0")/.."
 
+if [ "$(uname -s)" = "Darwin" ]; then
+  exec sh tools/start-native-demo.sh
+fi
+
 if ! docker info >/dev/null 2>&1; then
   echo 'Docker не запущен. Открой Docker Desktop и повтори команду.' >&2
   exit 1

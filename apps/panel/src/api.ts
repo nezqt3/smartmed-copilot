@@ -76,6 +76,6 @@ export const api = {
     text: string
     turns: Turn[]
     uncertain_turn_ids: number[]
-    speaker_labels: 'inferred_from_text'
+    speaker_labels: 'inferred_from_text' | 'manual_required'
   }>('/v1/audio/assign-speakers', json({ text })),
 }

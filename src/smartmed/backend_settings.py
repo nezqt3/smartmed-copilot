@@ -21,6 +21,7 @@ class BackendSettings(BaseModel):
     outpatient_timeout_s: float = Field(default=180, gt=0, le=600)
     repair_attempts: int = Field(default=1, ge=0, le=2)
     context_tokens: int = Field(default=16384, ge=4096, le=16384)
+    cpu_threads: int = Field(default=2, ge=1, le=16)
     queue_capacity: int = Field(default=8, ge=1, le=100)
     retention_days: int = Field(default=7, ge=1, le=365)
     output_tokens: int = Field(default=1600, ge=512, le=4096)

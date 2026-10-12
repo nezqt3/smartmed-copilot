@@ -106,7 +106,9 @@ export default function OutpatientPanel() {
     setTurns(replaceBlank?assigned:[...turns,...assigned])
     setUncertainTurns(result.uncertain_turn_ids.map(id=>id+offset))
     setAsrText('')
-    setNotice(result.uncertain_turn_ids.length
+    setNotice(result.speaker_labels==='manual_required'
+      ? t('部分角色无法确定，原文已保留，请手动检查并拆分标记的文字。')
+      : result.uncertain_turn_ids.length
       ? `${t('已自动区分角色，请核对不确定的句子')} ${result.uncertain_turn_ids.map(id=>id+offset).join(', ')}.`
       : t('已自动区分医生和患者，请快速核对文本。'))
   }

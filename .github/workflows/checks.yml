@@ -9,7 +9,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -e ".[dev]"
-      - run: ruff check src tests experiments/03_backend_smoke/run.py experiments/04_api_walkthrough/run.py experiments/05_backend_evaluation tools/task03_check.py datasets/task03/build.py
+      - run: ruff check src tests experiments/03_backend_smoke/run.py experiments/04_api_walkthrough/run.py experiments/05_backend_evaluation tools/task03_check.py tools/pipeline_smoke.py datasets/task03/build.py
       - run: pytest tests experiments/02_model_comparison/test_scoring.py experiments/01_baseline/test_checks.py
       - run: python tools/task03_check.py
   frontend:
@@ -24,4 +24,6 @@ jobs:
       - run: npm ci
         working-directory: apps/panel
       - run: npm run build
+        working-directory: apps/panel
+      - run: npm run test:audio
         working-directory: apps/panel

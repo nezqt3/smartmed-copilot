@@ -59,16 +59,23 @@ def eligible_history_span(section: int, span: dict, source: list[dict]) -> bool:
     text = span["text"]
     if re.search(r"想确认|想知道|想了解|想问|来看看", text):
         return False
-    cue = r"过敏|皮疹|药疹|荨麻疹|不耐受" if section == 3 else r"药|服用|服过|服药|吃过|吃了|毫克|胶囊|注射"
+    cue = (
+        r"过敏|皮疹|药疹|荨麻疹|不耐受"
+        if section == 3
+        else r"药|服用|服过|服药|吃过|吃了|毫克|胶囊|注射"
+    )
     if re.search(cue, text, re.IGNORECASE):
         return True
     previous = source[span["i"] - 1] if span["i"] else None
-    question = previous and previous["speaker"] == "doctor" and re.search(
-        r"过敏" if section == 3 else r"药|服用|吃过", previous["text"]
+    question = (
+        previous
+        and previous["speaker"] == "doctor"
+        and re.search(r"过敏" if section == 3 else r"药|服用|吃过", previous["text"])
     )
-    return bool(question and re.fullmatch(
-        r"(?:没有|没|有|不知道|不清楚|记不清|是|不是|对)[，。！!？?\s]*", text
-    ))
+    return bool(
+        question
+        and re.fullmatch(r"(?:没有|没|有|不知道|不清楚|记不清|是|不是|对)[，。！!？?\s]*", text)
+    )
 
 
 def expand(payload: dict, request: OutpatientRequest):

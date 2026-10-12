@@ -151,6 +151,7 @@ class OutpatientExtractor(OllamaExtractor):
                 "options": {
                     "temperature": 0,
                     "seed": 42,
+                    "num_thread": self.settings.cpu_threads,
                     "num_ctx": self.settings.context_tokens,
                     "num_predict": 4096,
                 },
