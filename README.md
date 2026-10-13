@@ -1,6 +1,8 @@
 # SmartMed Ambient EHR Copilot
 
-<video src="video/smartmed-business-flow-zh.mp4" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/c46024dc-41d7-49f7-8918-ab57f9d4004d" controls width="100%"></video>
+
+Бизнес-флоу одного китайского амбулаторного приёма: 2:29, интерфейс и озвучка на китайском. [Скачать mp4 (7 МБ)](video/smartmed-business-flow-zh.mp4).
 
 **Быстрое локальное демо:** `sh tools/start-demo.sh` → [панель на Mac](http://127.0.0.1:5173), [на Linux](http://127.0.0.1:8080). Скрипт поднимает сервисы и при первом запуске помогает создать сотрудника. [Пошаговый сценарий](docs/local-demo.md).
 Интерфейс панели по умолчанию на русском; язык переключается в хэдере между русским, английским и китайским.
