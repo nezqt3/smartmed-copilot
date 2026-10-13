@@ -1,6 +1,8 @@
 # SmartMed Ambient EHR Copilot
 
-<video src="video/smartmed-business-flow-zh.mp4" controls width="100%"></video>
+<video src="https://github.com/user-attachments/assets/c46024dc-41d7-49f7-8918-ab57f9d4004d" controls width="100%"></video>
+
+一次中国门诊接诊的完整业务流程：2:29，界面与配音均为中文。[下载 mp4（7 MB）](video/smartmed-business-flow-zh.mp4)。
 
 > Новая панель: **outpatient.v1**, девять разделов китайской амбулаторной записи,
 > несколько фактов в разделе, источники, ручные правки, проверка врачом и печать/сохранение PDF.
