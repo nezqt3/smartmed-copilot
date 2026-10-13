@@ -1,5 +1,7 @@
 # SmartMed Ambient EHR Copilot
 
+<video src="video/smartmed-business-flow-zh.mp4" controls width="100%"></video>
+
 > Новая панель: **outpatient.v1**, девять разделов китайской амбулаторной записи,
 > несколько фактов в разделе, источники, ручные правки, проверка врачом и печать/сохранение PDF.
 > Запуск: API как ниже, `cd apps/panel && npm ci && npm run dev`; http://127.0.0.1:5173.
